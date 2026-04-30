@@ -2,17 +2,18 @@
 
 [ext_resource type="Material" uid="uid://derpqkc1oebjk" path="res://escenas/jugador/material_daño.tres" id="1_vkjxu"]
 [ext_resource type="Script" uid="uid://gl6tucsav3ok" path="res://escenas/jugador/jugador.gd" id="1_vquro"]
-[ext_resource type="Texture2D" uid="uid://cdaixgkt7585g" path="res://assets/jugador/submarino.png" id="2_8cmsc"]
 [ext_resource type="AudioStream" uid="uid://by2iafmryrla2" path="res://assets/audio/sfx/disparo.wav" id="3_jkpmm"]
+[ext_resource type="Texture2D" uid="uid://difwcwdstlu3n" path="res://assets/jugador/nave_beto.png" id="3_mnegl"]
 [ext_resource type="AudioStream" uid="uid://3rgdq7vfbpcn" path="res://assets/audio/sfx/level_up.wav" id="4_vkjxu"]
 [ext_resource type="AudioStream" uid="uid://bfy6rw6qudsb5" path="res://assets/audio/sfx/daño.wav" id="5_xlrr1"]
 [ext_resource type="AudioStream" uid="uid://bu5cu0fsbpulh" path="res://assets/audio/sfx/explosion.wav" id="7_26844"]
 [ext_resource type="Texture2D" uid="uid://gn7ay2yc1jv5" path="res://assets/particulas/fire_01.png" id="8_mnegl"]
 [ext_resource type="Script" uid="uid://bg6lns8xsld3m" path="res://escenas/jugador/iman.gd" id="9_mnegl"]
+[ext_resource type="Texture2D" uid="uid://crqo1kmpq7ro8" path="res://assets/particulas/flame_05.png" id="10_j2gbx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_opouk"]
-radius = 7.0
-height = 42.0
+radius = 21.0
+height = 118.0
 
 [sub_resource type="Gradient" id="Gradient_j2gbx"]
 offsets = PackedFloat32Array(0, 0.73426574, 1)
@@ -91,6 +92,70 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Submarino:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5707964]
+}
+
+[sub_resource type="Animation" id="Animation_0ug0u"]
+resource_name = "esquivar"
+length = 0.33333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2200552, 0.3005397),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 1, 1, 0.105882354), Color(0, 1, 1, 0.105882354), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Submarino:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.5707964, 4.71238898038469]
+}
 
 [sub_resource type="Animation" id="Animation_26844"]
 resource_name = "explotar"
@@ -157,31 +222,60 @@ tracks/4/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_j2gbx"]
+resource_name = "invulnerabilidad"
+length = 0.46666667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.45621198),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j2gbx"]
 _data = {
 &"RESET": SubResource("Animation_mnegl"),
-&"explotar": SubResource("Animation_26844")
+&"esquivar": SubResource("Animation_0ug0u"),
+&"explotar": SubResource("Animation_26844"),
+&"invulnerabilidad": SubResource("Animation_j2gbx")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j2gbx"]
-radius = 59.3043
+radius = 306.86316
+
+[sub_resource type="Curve" id="Curve_y8cwd"]
+_data = [Vector2(0.0754717, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.15002239), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_rgcxu"]
+offsets = PackedFloat32Array(0.0016611295, 0.5199336, 1)
+colors = PackedColorArray(0.7529412, 1, 1, 1, 0, 0.9184935, 0.8071811, 1, 0.13330114, 0.22413787, 0.63382185, 1)
 
 [node name="Jugador" type="CharacterBody2D" unique_id=1183311057]
 collision_mask = 28
 script = ExtResource("1_vquro")
-velocidad_de_giro = 8.065
-fuerza_de_ataque = 4.415
-velocidad_de_ataque = 0.495
+velocidad_de_giro = 5.0
+fuerza_de_ataque = 2.0
+misil_cooldown = 0.5
+radio_de_ataque = 2000.0
 "material_daño" = ExtResource("1_vkjxu")
 
 [node name="Submarino" type="Sprite2D" parent="." unique_id=1079429370]
 texture_filter = 1
 use_parent_material = true
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_8cmsc")
+rotation = -1.5707964
+scale = Vector2(0.305, 0.305)
+texture = ExtResource("3_mnegl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1138392618]
-position = Vector2(6, 4)
+position = Vector2(1, 1)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_opouk")
 
@@ -214,16 +308,67 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_y8cwd")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=298187284]
+unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_j2gbx")
 
 [node name="Iman" type="Area2D" parent="." unique_id=395941439 node_paths=PackedStringArray("jugador")]
 unique_name_in_owner = true
+visible = false
 collision_layer = 256
 collision_mask = 4
 script = ExtResource("9_mnegl")
 jugador = NodePath("..")
+velocidad = 11.205
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Iman" unique_id=106066370]
 shape = SubResource("CircleShape2D_j2gbx")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=575208023]
+position = Vector2(-80, -17)
+texture = ExtResource("10_j2gbx")
+lifetime = 0.35000000000000003
+particle_flag_align_y = true
+direction = Vector2(-0.625, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 160.0
+initial_velocity_max = 439.71
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_y8cwd")
+color_ramp = SubResource("Gradient_rgcxu")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="." unique_id=1855404063]
+position = Vector2(-76, 22)
+texture = ExtResource("10_j2gbx")
+lifetime = 0.35000000000000003
+particle_flag_align_y = true
+direction = Vector2(-0.625, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 160.0
+initial_velocity_max = 439.71
+angle_min = -270.0
+angle_max = -270.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_y8cwd")
+color_ramp = SubResource("Gradient_rgcxu")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=222281754]
+
+[node name="NextLvlBar" type="ProgressBar" parent="CanvasLayer" unique_id=1180053419]
+unique_name_in_owner = true
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -27.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [connection signal="area_entered" from="Iman" to="Iman" method="_on_area_entered"]

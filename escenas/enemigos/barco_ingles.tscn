@@ -21,6 +21,7 @@ radius = 250.88045
 
 [node name="BarcoIngles" type="CharacterBody2D" unique_id=2090262566 groups=["enemigos"]]
 rotation = 1.5707964
+scale = Vector2(2.205, 2.205)
 collision_layer = 2
 collision_mask = 8
 script = ExtResource("1_jpt84")

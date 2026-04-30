@@ -7,7 +7,11 @@ extends Area2D
 
 @export var velocidad_misil: float = 800.0  # El misil es rápido, idealmente más rápido que los enemigos.
 @export var tiempo_maximo_de_vida: float = 0.5 # Se autodestruye después de 0.5 segundos.
-
+@export var velocidad_de_giro := 9000.0
+# Esta es la variable nueva que recibe del jugador
+var velocidad_heredada: Vector2 = Vector2.ZERO 
+# Variable para guardar el cálculo final
+var velocidad_total: Vector2 = Vector2.ZERO
 # ==============================================================================
 # VARIABLES Y REFERENCIAS
 # ==============================================================================

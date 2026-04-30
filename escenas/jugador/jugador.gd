@@ -15,7 +15,7 @@ extends CharacterBody2D
 
 # Ataque
 @export var fuerza_de_ataque := 1.0        ## Daño base de los misiles
-@export var velocidad_de_ataque := 1.0     ## Frecuencia de disparo (ej: 1.0 por segundo)
+@export var misil_cooldown := 1.0     ## Frecuencia de disparo (ej: 1.0 por segundo)
 @export var radio_de_ataque: float = 500.0 ## Distancia máxima para buscar enemigos
 @export var duración_de_misil: float = 1.0 ## Segundos antes de que el misil desaparezca
 
@@ -23,6 +23,7 @@ extends CharacterBody2D
 @export var puntos_de_salud_maximos := 5         ## Vida máxima del personaje
 @export var probabilidad_de_esquiva: float = 0.05  ## Probabilidad de no recibir daño (5%)
 @export var material_daño: ShaderMaterial
+@export var duracion_invulnerabilidad: float = 1.0
 
 # ==============================================================================
 # REFERENCIAS Y PRECARGAS
@@ -33,6 +34,8 @@ extends CharacterBody2D
 
 @onready var timer_misil: Timer = $TimerMisil # ¡Debe existir este Timer en la escena!
 @onready var sprite: Sprite2D = $Submarino
+@onready var next_lvl_bar: ProgressBar = %NextLvlBar
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 
 # ==============================================================================
@@ -48,13 +51,13 @@ var experiencia_para_subir: float = 10.0 # Cantidad de XP necesaria para Nivel 2
 # ==============================================================================
 
 var salud_actual: float: set = al_cambiar_de_salud
+var puede_atacar: bool = true
+var puede_esquivar: bool = true
+var invulnerable: bool = false
 
 signal derrotado 
-
 signal salud_cambiada(salud_nueva, salud_maxima)
-
 signal nivel_subido(nuevo_nivel)
-
 signal experiencia_ganada(cantidad)
 
 
@@ -68,14 +71,24 @@ func _ready():
 	salud_actual = puntos_de_salud_maximos
 	salud_cambiada.emit(salud_actual, puntos_de_salud_maximos)
 	
+	next_lvl_bar.value = experiencia_actual
+	next_lvl_bar.max_value = experiencia_para_subir
+	
 	# Registrar al jugador como una variable global
 	Globales.jugador = self
 	
 	# Conectar el timer del ataque
 	timer_misil.timeout.connect(_on_timer_misil_timeout)
+	timer_misil.wait_time = misil_cooldown
 
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_pressed("disparar") and puede_atacar:
+		puede_atacar = false
+		var direccion_de_disparo := global_position.direction_to(get_global_mouse_position())
+		lanzar_misil_a_direccion(direccion_de_disparo)
+	if Input.is_action_pressed("esquivar") and puede_esquivar:
+		esquivar()
 	# 1. Obtener input del jugador (get_axis es más limpio para esto)
 	# Devuelve -1 (izquierda/abajo), 1 (derecha/arriba) o 0 (nada)
 	var giro = Input.get_axis("izquierda", "derecha")
@@ -115,11 +128,18 @@ func retroceder(delta: float) -> void:
 func girar(direccion: float, delta: float) -> void:
 	if direccion != 0:
 		rotation += direccion * velocidad_de_giro * delta
-		
-# ==============================================================================
-# SISTEMA DE MOVIMIENTO
-# ==============================================================================
 
+func esquivar() -> void:
+	invulnerable = true
+	puede_esquivar = false
+	animation_player.play("esquivar")
+	get_tree().create_timer(1.0).timeout.connect(
+		func():
+			invulnerable = false
+			puede_esquivar = true
+			animation_player.play("RESET")
+	)
+	
 # La función move_toward() es mágica: acerca un número a otro de a pasos definidos,
 # y evita pasarse del límite (hace el clamp automáticamente).
 
@@ -128,7 +148,6 @@ func girar(direccion: float, delta: float) -> void:
 # ==============================================================================
 
 func al_cambiar_de_salud(nueva_salud: float) -> void:
-	
 	if nueva_salud > puntos_de_salud_maximos:
 		nueva_salud = puntos_de_salud_maximos
 	
@@ -141,17 +160,20 @@ func al_cambiar_de_salud(nueva_salud: float) -> void:
 
 
 func morir():
+	animation_player.play("explotar")
+	await animation_player.animation_finished
 	derrotado.emit()
 	get_tree().reload_current_scene.call_deferred()
 
 
 func recibir_danio(cantidad_de_danio: float) -> void:
-	if salud_actual <= 0:
+	if salud_actual <= 0 or invulnerable:
 		return
 		
 	# Lógica de Probabilidad de Esquiva
 	if randf() < probabilidad_de_esquiva:
 		# Feedback: Mostrar un mensaje de 'ESQUIVADO' (para implementar después)
+		esquivar()
 		print("¡Esquivado!")
 		return
 		
@@ -164,6 +186,17 @@ func recibir_danio(cantidad_de_danio: float) -> void:
 	material = null
 	
 	# Aquí se puede agregar lógica de feedback visual (parpadeo)
+	activar_invulnerabilidad(duracion_invulnerabilidad)
+	
+
+func activar_invulnerabilidad(duracion: float) -> void:
+	animation_player.play("invulnerabilidad")
+	invulnerable = true
+	get_tree().create_timer(duracion).timeout.connect(
+		func():
+			invulnerable = false
+			animation_player.play("RESET")
+	)
 
 # ==============================================================================
 # SISTEMA DE PROGRESIÓN (XP y Nivelación)
@@ -176,6 +209,9 @@ func ganar_experiencia(cantidad: float) -> void:
 	# Verificar si se sube de nivel
 	if experiencia_actual >= experiencia_para_subir:
 		subir_de_nivel()
+	
+	next_lvl_bar.value = experiencia_actual
+
 
 func subir_de_nivel() -> void:
 	# Ajustar XP restante y aumentar nivel
@@ -185,12 +221,13 @@ func subir_de_nivel() -> void:
 	
 	# Aumentar la XP necesaria para el próximo nivel (ej: 10% más difícil)
 	experiencia_para_subir *= 1.1 
+	next_lvl_bar.max_value = experiencia_para_subir
 	
 	# Aumentar capacidades (el núcleo del juego!)
 	puntos_de_salud_maximos += 1
 	fuerza_de_ataque += 0.5
-	velocidad_de_ataque *= 0.9
-	timer_misil.wait_time = velocidad_de_ataque
+	misil_cooldown *= 0.9
+	timer_misil.wait_time = misil_cooldown
 	probabilidad_de_esquiva = min(probabilidad_de_esquiva + 0.05, 0.5) # Máximo 50% de esquiva
 	
 	# Curar al máximo y emitir señal de nivel subido
@@ -204,12 +241,13 @@ func subir_de_nivel() -> void:
 
 # Conectado a la señal 'timeout' del TimerAtaque
 func _on_timer_misil_timeout():
-	var enemigo_cercano: Enemigo = buscar_enemigo_cercano()
-	
-	if enemigo_cercano:
-		# Calcular la dirección hacia el enemigo
-		var direccion_de_disparo = global_position.direction_to(enemigo_cercano.global_position)
-		lanzar_misil_a_direccion(direccion_de_disparo)
+	puede_atacar = true
+	#var enemigo_cercano: Enemigo = buscar_enemigo_cercano()
+	#
+	#if enemigo_cercano:
+		## Calcular la dirección hacia el enemigo
+		#var direccion_de_disparo = global_position.direction_to(enemigo_cercano.global_position)
+		#lanzar_misil_a_direccion(direccion_de_disparo)
 
 # Función principal para buscar el objetivo
 func buscar_enemigo_cercano() -> Enemigo:
@@ -232,7 +270,6 @@ func buscar_enemigo_cercano() -> Enemigo:
 func lanzar_misil_a_direccion(direccion_de_disparo: Vector2) -> void:
 	var nuevo_misil: Misil = Misil.crear_misil(duración_de_misil, fuerza_de_ataque)
 	
-	
 	# 1. Posicionamiento: Lanzamos el misil desde el centro del jugador
 	get_parent().add_child(nuevo_misil) # Lo añadimos al nodo principal (Mundo)
 	nuevo_misil.global_position = global_position
@@ -240,6 +277,10 @@ func lanzar_misil_a_direccion(direccion_de_disparo: Vector2) -> void:
 	# 2. Configuración: Le pasamos la dirección y el daño
 	nuevo_misil.direccion = direccion_de_disparo.normalized()
 	nuevo_misil.danio_a_infligir = fuerza_de_ataque
+	nuevo_misil.rotation = nuevo_misil.direccion.angle()
+	nuevo_misil.velocidad_heredada = velocity
+	
+	puede_atacar = false
 	sonido_disparo.play()
 	
 	# Aquí podrías rotar el sprite del misil para que apunte a la dirección
