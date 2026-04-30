@@ -73,10 +73,13 @@ func _on_body_entered(body: Node2D):
 		body.recibir_danio(danio_a_infligir)
 		
 		# 2. Reproducir animacion de explosion
-		sonido_explosion.pitch_scale = sonido_explosion.pitch_scale + randf_range(-0.2, 0.2)
-		animation_player.play("explotar")
+		explotar()
 		
 	# Importante: Si golpea otros cuerpos (como rocas o corales, que son StaticBody2D)
 	# el misil simplemente debe atravesarlos, o bien podrías agregar aquí un "queue_free()"
 	# si quisieras que el misil se destruya contra rocas. Por ahora, solo se destruye
 	# al golpear un enemigo.
+	
+func explotar() -> void:
+	sonido_explosion.pitch_scale = sonido_explosion.pitch_scale + randf_range(-0.2, 0.2)
+	animation_player.play("explotar")

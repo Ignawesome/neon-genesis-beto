@@ -53,6 +53,7 @@ var experiencia_para_subir: float = 10.0 # Cantidad de XP necesaria para Nivel 2
 var salud_actual: float: set = al_cambiar_de_salud
 var puede_atacar: bool = true
 var puede_esquivar: bool = true
+var puede_activar_anillo: bool = true
 var invulnerable: bool = false
 
 signal derrotado 
@@ -77,7 +78,7 @@ func _ready():
 	# Registrar al jugador como una variable global
 	Globales.jugador = self
 	
-	# Conectar el timer del ataque
+	# Conectar el timer del ataquewa
 	timer_misil.timeout.connect(_on_timer_misil_timeout)
 	timer_misil.wait_time = misil_cooldown
 
@@ -89,6 +90,8 @@ func _physics_process(delta: float) -> void:
 		lanzar_misil_a_direccion(direccion_de_disparo)
 	if Input.is_action_pressed("esquivar") and puede_esquivar:
 		esquivar()
+	if Input.is_action_pressed("ulti") and puede_activar_anillo:
+		activar_anillo()
 	# 1. Obtener input del jugador (get_axis es más limpio para esto)
 	# Devuelve -1 (izquierda/abajo), 1 (derecha/arriba) o 0 (nada)
 	var giro = Input.get_axis("izquierda", "derecha")
@@ -139,6 +142,11 @@ func esquivar() -> void:
 			puede_esquivar = true
 			animation_player.play("RESET")
 	)
+
+
+func activar_anillo():
+	puede_activar_anillo = false
+	var anillo: Anillo = Anillo.crear_anillo(self)
 	
 # La función move_toward() es mágica: acerca un número a otro de a pasos definidos,
 # y evita pasarse del límite (hace el clamp automáticamente).
@@ -214,6 +222,7 @@ func ganar_experiencia(cantidad: float) -> void:
 
 
 func subir_de_nivel() -> void:
+	puede_activar_anillo = true
 	# Ajustar XP restante y aumentar nivel
 	experiencia_actual -= experiencia_para_subir
 	nivel += 1

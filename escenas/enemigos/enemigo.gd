@@ -109,8 +109,6 @@ func lanzar_misil_a_direccion(direccion_de_disparo: Vector2) -> void:
 	nuevo_misil.global_position = global_position
 	nuevo_misil.modulate = Color.DARK_RED
 	nuevo_misil.velocidad_misil = 400.0
-	nuevo_misil.set_collision_layer_value(5, true) 
-	nuevo_misil.set_collision_layer_value(7, false)
 	nuevo_misil.set_collision_mask_value(2, false)
 	nuevo_misil.set_collision_mask_value(6, false)
 	nuevo_misil.set_collision_mask_value(1, true)

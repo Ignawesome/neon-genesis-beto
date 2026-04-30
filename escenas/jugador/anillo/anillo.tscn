@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://cwnt55x1lfkm"]
+
+[ext_resource type="Texture2D" uid="uid://ophe0kfb8k5g" path="res://assets/particulas/circle_03.png" id="1_ci3oi"]
+[ext_resource type="Script" uid="uid://cqfser0c3qhm5" path="res://escenas/jugador/anillo/anillo.gd" id="1_hklbu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hklbu"]
+radius = 1.0
+
+[sub_resource type="Animation" id="Animation_xokb7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.001, 0.001)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_1seva"]
+resource_name = "expansion"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.96666664),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.001, 0.001), Vector2(10, 10)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.96666664),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 1981.9]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hj2si"]
+_data = {
+&"RESET": SubResource("Animation_xokb7"),
+&"expansion": SubResource("Animation_1seva")
+}
+
+[node name="Anillo" type="Area2D" unique_id=2038895586]
+collision_layer = 256
+collision_mask = 64
+script = ExtResource("1_hklbu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=151901889]
+shape = SubResource("CircleShape2D_hklbu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=12410006]
+modulate = Color(1, 0.7607843, 0.4117647, 1)
+scale = Vector2(0.001, 0.001)
+texture = ExtResource("1_ci3oi")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1742730250]
+libraries/ = SubResource("AnimationLibrary_hj2si")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
