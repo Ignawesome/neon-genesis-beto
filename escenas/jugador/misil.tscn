@@ -1,0 +1,189 @@
+[gd_scene format=3 uid="uid://beqg12lmsofl8"]
+
+[ext_resource type="Script" uid="uid://c1ip3vaadyy2i" path="res://escenas/jugador/misil.gd" id="1_g2og5"]
+[ext_resource type="Texture2D" uid="uid://bh0wa3qfc5wmj" path="res://assets/jugador/misil.png" id="2_hwk0l"]
+[ext_resource type="AudioStream" uid="uid://bu5cu0fsbpulh" path="res://assets/audio/sfx/explosion.wav" id="3_hwk0l"]
+[ext_resource type="Texture2D" uid="uid://gn7ay2yc1jv5" path="res://assets/particulas/fire_01.png" id="4_egb4o"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_egb4o"]
+radius = 3.0
+height = 18.0
+
+[sub_resource type="Gradient" id="Gradient_u7ek4"]
+offsets = PackedFloat32Array(0, 0.73426574, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.5406132, 0.5406132, 0.5406132, 1, 0.14685315, 0.14685315, 0.14685315, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_egb4o"]
+gradient = SubResource("Gradient_u7ek4")
+
+[sub_resource type="Curve" id="Curve_jqael"]
+_data = [Vector2(0, 0.6575876), 0.0, 0.0, 0, 0, Vector2(1, 0.36186773), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u7ek4"]
+curve = SubResource("Curve_jqael")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ef7i"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 89.009995
+initial_velocity_max = 89.009995
+gravity = Vector3(0, 0, 0)
+damping_min = 43.456
+damping_max = 58.116
+scale_curve = SubResource("CurveTexture_u7ek4")
+color = Color(1, 0.46666667, 0, 0.38431373)
+color_ramp = SubResource("GradientTexture1D_egb4o")
+
+[sub_resource type="Animation" id="Animation_u7ek4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Explosion:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SonidoExplosion:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Misil:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_egb4o"]
+resource_name = "explotar"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Explosion:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SonidoExplosion:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Misil:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.03333336),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.03333336),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.93333334),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p65eo"]
+_data = {
+&"RESET": SubResource("Animation_u7ek4"),
+&"explotar": SubResource("Animation_egb4o")
+}
+
+[node name="Misil" type="Area2D" unique_id=1443267814]
+collision_layer = 64
+collision_mask = 34
+script = ExtResource("1_g2og5")
+
+[node name="Misil" type="Sprite2D" parent="." unique_id=1019801976]
+position = Vector2(1, -1)
+scale = Vector2(0.47, 0.47)
+texture = ExtResource("2_hwk0l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=337366297]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_egb4o")
+
+[node name="TiempoDeVida" type="Timer" parent="." unique_id=781331306]
+
+[node name="SonidoExplosion" type="AudioStreamPlayer2D" parent="." unique_id=1168662009]
+stream = ExtResource("3_hwk0l")
+volume_db = -10.761
+
+[node name="Explosion" type="GPUParticles2D" parent="." unique_id=1480993201]
+emitting = false
+texture = ExtResource("4_egb4o")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_8ef7i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1151754739]
+libraries/ = SubResource("AnimationLibrary_p65eo")

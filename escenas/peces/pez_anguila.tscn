@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://8jgqtw0oa11"]
+
+[ext_resource type="Script" uid="uid://bgvmfj8pv4lhj" path="res://escenas/peces/pez.gd" id="1_snnfe"]
+[ext_resource type="Texture2D" uid="uid://catgqd77t86h2" path="res://assets/tiles/fishTilesheet@2.png" id="2_u0o7j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fab4n"]
+atlas = ExtResource("2_u0o7j")
+region = Rect2(1823, 682, 194, 41)
+
+[node name="PezAnguila" type="Node2D"]
+script = ExtResource("1_snnfe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = SubResource("AtlasTexture_fab4n")

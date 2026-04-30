@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://chdb6ur4yk4xe"]
+
+[ext_resource type="Script" uid="uid://b3tmnagc2lm28" path="res://escenas/enemigos/enemigo.gd" id="1_jpt84"]
+[ext_resource type="Texture2D" uid="uid://fpekoij8lhpv" path="res://assets/enemigos/nave_brit-removebg-preview.png" id="2_0do7l"]
+[ext_resource type="AudioStream" uid="uid://by2iafmryrla2" path="res://assets/audio/sfx/disparo.wav" id="3_0do7l"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_und4c"]
+radius = 15.0
+height = 92.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rgida"]
+radius = 17.0
+height = 70.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hyley"]
+radius = 22.09606
+height = 84.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0fmwu"]
+radius = 250.88045
+
+[node name="BarcoIngles" type="CharacterBody2D" unique_id=2090262566 groups=["enemigos"]]
+rotation = 1.5707964
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_jpt84")
+velocidad_de_movimiento = 175.0
+puntos_de_salud_maximos = 5.0
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1820233895]
+position = Vector2(2, -23.00003)
+scale = Vector2(0.25366744, 0.25366747)
+texture = ExtResource("2_0do7l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2001147944]
+position = Vector2(1, -19)
+shape = SubResource("CapsuleShape2D_und4c")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1578794563]
+unique_name_in_owner = true
+rotation = -1.5707964
+collision_layer = 16
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hitbox" unique_id=190840879]
+position = Vector2(12, 5.2453663e-07)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_rgida")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1174398145]
+unique_name_in_owner = true
+rotation = -1.5707964
+collision_layer = 32
+collision_mask = 64
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hurtbox" unique_id=933027315]
+position = Vector2(16, 1.0000007)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_hyley")
+
+[node name="Deteccion" type="Area2D" parent="." unique_id=310970100]
+collision_layer = 0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deteccion" unique_id=1777689351]
+shape = SubResource("CircleShape2D_0fmwu")
+
+[node name="SonidoDisparo" type="AudioStreamPlayer2D" parent="." unique_id=49723250]
+stream = ExtResource("3_0do7l")
+volume_db = -16.0
+bus = &"SFX"
+
+[node name="TimerMisil" type="Timer" parent="." unique_id=1399413646]
+autostart = true
+
+[connection signal="body_entered" from="Deteccion" to="." method="_on_deteccion_body_entered"]
+[connection signal="body_exited" from="Deteccion" to="." method="_on_deteccion_body_exited"]
+[connection signal="timeout" from="TimerMisil" to="." method="_on_timer_misil_timeout"]

@@ -1,0 +1,194 @@
+[gd_scene format=3 uid="uid://6ls3aw75j8hu"]
+
+[ext_resource type="Script" uid="uid://cpo3lyut1s2y4" path="res://escenas/mundo.gd" id="1_4vydk"]
+[ext_resource type="PackedScene" uid="uid://j5rqe0nhurgb" path="res://escenas/jugador/jugador.tscn" id="1_cdbbl"]
+[ext_resource type="Shader" uid="uid://lhfrlec3beob" path="res://escenas/estrellas.gdshader" id="2_kpmgh"]
+[ext_resource type="Texture2D" uid="uid://mqg3cdjl46g4" path="res://assets/Background_Stars-0001.png" id="3_6r2j4"]
+[ext_resource type="Texture2D" uid="uid://bpi74uh5lhie6" path="res://assets/Background_Space-0001.png" id="3_mb57o"]
+[ext_resource type="Texture2D" uid="uid://2te4fsbbudjd" path="res://assets/Background_Nebula-0002.png" id="4_jh10v"]
+[ext_resource type="PackedScene" uid="uid://tnju06m5ruxw" path="res://escenas/interfaz/ranura_corazon.tscn" id="4_v12yk"]
+[ext_resource type="Script" uid="uid://bmtn1254p4yj5" path="res://escenas/capa_pausa.gd" id="15_ry7fl"]
+[ext_resource type="PackedScene" uid="uid://ct3ni84jfra4u" path="res://escenas/enemigos/contenedor_enemigos.tscn" id="16_5bxjq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xq8jy"]
+shader = ExtResource("2_kpmgh")
+shader_parameter/stars_speed = Vector2(16.64, 1.6)
+shader_parameter/stars_density = 1.0
+
+[sub_resource type="Gradient" id="Gradient_xulgr"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.06048387, 0.1825658, 0.19, 0.42333335, 0.65, 0.77666664, 0.8669355, 0.8830645, 0.93666667)
+colors = PackedColorArray(0.9098039, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.8843978, 0.6384685, 7.70092e-07, 1, 0, 0, 0, 0, 0, 0.76862746, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5bxjq"]
+frequency = 0.1
+fractal_octaves = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kpmgh"]
+noise = SubResource("FastNoiseLite_5bxjq")
+color_ramp = SubResource("Gradient_xulgr")
+
+[sub_resource type="GDScript" id="GDScript_16hu1"]
+script/source = "extends Node2D
+
+func _ready() -> void:
+	Globales.contenedor_objetos = self
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_xulgr"]
+font_size = 59
+
+[sub_resource type="Gradient" id="Gradient_2q7jt"]
+offsets = PackedFloat32Array(0.21022727, 1)
+colors = PackedColorArray(0.4, 0.23137255, 0.19607843, 0.76862746, 0.21176471, 0.09803922, 0.039215688, 0.83137256)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ry7fl"]
+gradient = SubResource("Gradient_2q7jt")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kxf8l"]
+font_size = 106
+outline_size = 29
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Mundo" type="Node" unique_id=213590412]
+script = ExtResource("1_4vydk")
+
+[node name="FondoEscenario" type="Node2D" parent="." unique_id=1747902482]
+position = Vector2(0, 6)
+
+[node name="TextureRect3" type="TextureRect" parent="FondoEscenario" unique_id=161834357]
+material = SubResource("ShaderMaterial_xq8jy")
+offset_left = -10081.0
+offset_top = -5423.0
+offset_right = 10129.0
+offset_bottom = 5362.0
+texture = ExtResource("3_mb57o")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="FondoEscenario" unique_id=1902689705]
+material = SubResource("ShaderMaterial_xq8jy")
+offset_left = -10081.0
+offset_top = -5423.0
+offset_right = 10129.0
+offset_bottom = 5362.0
+texture = SubResource("NoiseTexture2D_kpmgh")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="FondoEscenario" unique_id=1614221624]
+offset_left = -10081.0
+offset_top = -5423.0
+offset_right = 10129.0
+offset_bottom = 5362.0
+texture = ExtResource("4_jh10v")
+
+[node name="TextureRect2" type="TextureRect" parent="FondoEscenario" unique_id=1051890991]
+material = SubResource("ShaderMaterial_xq8jy")
+offset_left = -10081.0
+offset_top = -5423.0
+offset_right = 10129.0
+offset_bottom = 5362.0
+texture = ExtResource("3_6r2j4")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="ContenedorEnemigos" parent="." unique_id=1544141882 instance=ExtResource("16_5bxjq")]
+tiempo_aumento_enemigos = 20
+tiempo_entre_enemigos = 1.0
+
+[node name="ContenedorJugador" type="Node2D" parent="." unique_id=520498290]
+position = Vector2(0, -1)
+
+[node name="Jugador" parent="ContenedorJugador" unique_id=152997274 instance=ExtResource("1_cdbbl")]
+
+[node name="Camera2D" type="Camera2D" parent="ContenedorJugador/Jugador" unique_id=2056180483]
+limit_left = -10103
+limit_top = -5420
+limit_right = 10103
+limit_bottom = 5329
+limit_smoothed = true
+
+[node name="ContenedorObjetos" type="Node2D" parent="." unique_id=380144335]
+
+[node name="ContenedorBurbujas" type="Node2D" parent="ContenedorObjetos" unique_id=1402166297]
+
+[node name="ContenedorXP" type="Node2D" parent="ContenedorObjetos" unique_id=225697739]
+script = SubResource("GDScript_16hu1")
+
+[node name="FrenteEscenario" type="Node2D" parent="." unique_id=1151759015]
+
+[node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=1802031765]
+
+[node name="Interfaz" type="Control" parent="CapaInterfaz" unique_id=1920918284]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ContenedorHP" type="HBoxContainer" parent="CapaInterfaz/Interfaz" unique_id=1641938596]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="RanuraCorazon" parent="CapaInterfaz/Interfaz/ContenedorHP" unique_id=1722431461 instance=ExtResource("4_v12yk")]
+layout_mode = 2
+
+[node name="RanuraCorazon2" parent="CapaInterfaz/Interfaz/ContenedorHP" unique_id=348546268 instance=ExtResource("4_v12yk")]
+layout_mode = 2
+
+[node name="RanuraCorazon3" parent="CapaInterfaz/Interfaz/ContenedorHP" unique_id=573756097 instance=ExtResource("4_v12yk")]
+layout_mode = 2
+
+[node name="RanuraCorazon4" parent="CapaInterfaz/Interfaz/ContenedorHP" unique_id=1168065046 instance=ExtResource("4_v12yk")]
+layout_mode = 2
+
+[node name="RanuraCorazon5" parent="CapaInterfaz/Interfaz/ContenedorHP" unique_id=1378105212 instance=ExtResource("4_v12yk")]
+layout_mode = 2
+
+[node name="SpeedLabel" type="Label" parent="CapaInterfaz/Interfaz" unique_id=676645444]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+text = "100"
+label_settings = SubResource("LabelSettings_xulgr")
+
+[node name="CapaPausa" type="CanvasLayer" parent="." unique_id=217847342]
+process_mode = 3
+visible = false
+script = ExtResource("15_ry7fl")
+
+[node name="TextureRect" type="TextureRect" parent="CapaPausa" unique_id=2055853651]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ry7fl")
+
+[node name="Label" type="Label" parent="CapaPausa" unique_id=1327052495]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -26.0
+offset_top = -11.5
+offset_right = 26.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "PAUSA"
+label_settings = SubResource("LabelSettings_kxf8l")

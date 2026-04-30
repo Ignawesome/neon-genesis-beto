@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7ry5o7sw76h6"]
+
+[ext_resource type="Script" uid="uid://b3tmnagc2lm28" path="res://escenas/enemigos/enemigo.gd" id="1_0fmwu"]
+[ext_resource type="Texture2D" uid="uid://dt3jak4xqxghr" path="res://assets/enemigos/kraken.png" id="2_0fmwu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_und4c"]
+radius = 77.81622
+height = 276.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rgida"]
+radius = 122.82961
+height = 314.72238
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hyley"]
+radius = 122.010925
+height = 352.76135
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0fmwu"]
+radius = 762.0026
+
+[node name="Kraken" type="CharacterBody2D" groups=["enemigos"]]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_0fmwu")
+velocidad_de_movimiento = 175.0
+puntos_de_salud_maximos = 5.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(-5.9604645e-08, 1.0000005)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_0fmwu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(-38, -17)
+rotation = -0.8426043
+shape = SubResource("CapsuleShape2D_und4c")
+
+[node name="Hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+rotation = -1.5707964
+collision_layer = 16
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(3.8146973e-06, 1)
+rotation = 0.025856767
+shape = SubResource("CapsuleShape2D_rgida")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+rotation = -1.5707964
+collision_layer = 32
+collision_mask = 64
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(3.8146973e-06, 0)
+rotation = 0.025856767
+shape = SubResource("CapsuleShape2D_hyley")
+
+[node name="Deteccion" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deteccion"]
+shape = SubResource("CircleShape2D_0fmwu")
+
+[connection signal="body_entered" from="Deteccion" to="." method="_on_deteccion_body_entered"]
+[connection signal="body_exited" from="Deteccion" to="." method="_on_deteccion_body_exited"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bb551hfsg7rl8"]
+
+[ext_resource type="Script" uid="uid://bgvmfj8pv4lhj" path="res://escenas/peces/pez.gd" id="1_6ua86"]
+[ext_resource type="Texture2D" uid="uid://catgqd77t86h2" path="res://assets/tiles/fishTilesheet@2.png" id="2_gishs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fab4n"]
+atlas = ExtResource("2_gishs")
+region = Rect2(1291, 653, 106, 103)
+
+[node name="PezGlobo" type="Node2D"]
+script = ExtResource("1_6ua86")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = SubResource("AtlasTexture_fab4n")

@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://j5rqe0nhurgb"]
+
+[ext_resource type="Script" uid="uid://gl6tucsav3ok" path="res://escenas/jugador/jugador.gd" id="1_vquro"]
+[ext_resource type="Texture2D" uid="uid://cdaixgkt7585g" path="res://assets/custom/submarino.png" id="2_8cmsc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_opouk"]
+radius = 27.0
+height = 156.0
+
+[node name="Jugador" type="CharacterBody2D"]
+script = ExtResource("1_vquro")
+velocidad_de_movimiento = null
+peso_submarino = null
+fuerza_de_ataque = null
+velocidad_de_ataque = null
+radio_de_ataque = null
+puntos_de_salud_maximos = null
+probabilidad_de_esquiva = null
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(9, 0)
+color = Color(0.3684755, 0.15784708, 0.120555304, 1)
+polygon = PackedVector2Array(2, -9, 19, -8, 35, -4, 39, 0, 35, 4, 20, 8, -2, 9, -29, 7, -49, 1, -54, 6, -57, 6, -57, -5, -54, -5, -49, -2, -37, -9, -25, -9, -25, -18, -13, -18, -13, -9)
+
+[node name="Submarino" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0.9999995, -5.9999995)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_8cmsc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_opouk")
+
+[node name="TimerMisil" type="Timer" parent="."]

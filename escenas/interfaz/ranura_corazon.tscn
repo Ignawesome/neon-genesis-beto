@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://tnju06m5ruxw"]
+
+[ext_resource type="Texture2D" uid="uid://ivp404ix4ebq" path="res://assets/interfaz/iconos/creatures/heart-full-black.png" id="1_cwh6x"]
+[ext_resource type="Texture2D" uid="uid://cuxoqgjep7t5g" path="res://assets/interfaz/iconos/creatures/heart-full-red.png" id="2_72wn5"]
+
+[node name="RanuraCorazon" type="TextureRect"]
+show_behind_parent = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_cwh6x")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="CorazonLleno" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.825, 0.825)
+pivot_offset = Vector2(22.8, 18.54)
+texture = ExtResource("2_72wn5")
+expand_mode = 3
+stretch_mode = 5

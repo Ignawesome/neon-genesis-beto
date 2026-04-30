@@ -1,0 +1,229 @@
+[gd_scene format=3 uid="uid://j5rqe0nhurgb"]
+
+[ext_resource type="Material" uid="uid://derpqkc1oebjk" path="res://escenas/jugador/material_daño.tres" id="1_vkjxu"]
+[ext_resource type="Script" uid="uid://gl6tucsav3ok" path="res://escenas/jugador/jugador.gd" id="1_vquro"]
+[ext_resource type="Texture2D" uid="uid://cdaixgkt7585g" path="res://assets/jugador/submarino.png" id="2_8cmsc"]
+[ext_resource type="AudioStream" uid="uid://by2iafmryrla2" path="res://assets/audio/sfx/disparo.wav" id="3_jkpmm"]
+[ext_resource type="AudioStream" uid="uid://3rgdq7vfbpcn" path="res://assets/audio/sfx/level_up.wav" id="4_vkjxu"]
+[ext_resource type="AudioStream" uid="uid://bfy6rw6qudsb5" path="res://assets/audio/sfx/daño.wav" id="5_xlrr1"]
+[ext_resource type="AudioStream" uid="uid://bu5cu0fsbpulh" path="res://assets/audio/sfx/explosion.wav" id="7_26844"]
+[ext_resource type="Texture2D" uid="uid://gn7ay2yc1jv5" path="res://assets/particulas/fire_01.png" id="8_mnegl"]
+[ext_resource type="Script" uid="uid://bg6lns8xsld3m" path="res://escenas/jugador/iman.gd" id="9_mnegl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_opouk"]
+radius = 7.0
+height = 42.0
+
+[sub_resource type="Gradient" id="Gradient_j2gbx"]
+offsets = PackedFloat32Array(0, 0.73426574, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.5406132, 0.5406132, 0.5406132, 1, 0.14685315, 0.14685315, 0.14685315, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_p65eo"]
+gradient = SubResource("Gradient_j2gbx")
+
+[sub_resource type="Curve" id="Curve_0ug0u"]
+_data = [Vector2(0, 0.6575876), 0.0, 0.0, 0, 0, Vector2(1, 0.36186773), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_whxxe"]
+curve = SubResource("Curve_0ug0u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y8cwd"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 89.009995
+initial_velocity_max = 89.009995
+gravity = Vector3(0, 0, 0)
+damping_min = 43.456
+damping_max = 58.116
+scale_curve = SubResource("CurveTexture_whxxe")
+color = Color(1, 0.46666667, 0, 0.38431373)
+color_ramp = SubResource("GradientTexture1D_p65eo")
+
+[sub_resource type="Animation" id="Animation_mnegl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Explosion:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Submarino:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SonidoExplosion:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_26844"]
+resource_name = "explotar"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Explosion:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Submarino:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SonidoExplosion:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.0333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"morir"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j2gbx"]
+_data = {
+&"RESET": SubResource("Animation_mnegl"),
+&"explotar": SubResource("Animation_26844")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j2gbx"]
+radius = 59.3043
+
+[node name="Jugador" type="CharacterBody2D" unique_id=1183311057]
+collision_mask = 28
+script = ExtResource("1_vquro")
+velocidad_de_giro = 8.065
+fuerza_de_ataque = 4.415
+velocidad_de_ataque = 0.495
+"material_daño" = ExtResource("1_vkjxu")
+
+[node name="Submarino" type="Sprite2D" parent="." unique_id=1079429370]
+texture_filter = 1
+use_parent_material = true
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_8cmsc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1138392618]
+position = Vector2(6, 4)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_opouk")
+
+[node name="TimerMisil" type="Timer" parent="." unique_id=204253485]
+autostart = true
+
+[node name="SonidoDisparo" type="AudioStreamPlayer2D" parent="." unique_id=1041057297]
+stream = ExtResource("3_jkpmm")
+volume_db = -16.0
+bus = &"SFX"
+
+[node name="SonidoLevelUp" type="AudioStreamPlayer2D" parent="." unique_id=2007828184]
+stream = ExtResource("4_vkjxu")
+volume_db = -16.0
+bus = &"SFX"
+
+[node name="SonidoDañado" type="AudioStreamPlayer2D" parent="." unique_id=357083975]
+stream = ExtResource("5_xlrr1")
+volume_db = -16.0
+
+[node name="SonidoExplosion" type="AudioStreamPlayer2D" parent="." unique_id=169181710]
+stream = ExtResource("7_26844")
+volume_db = -16.0
+
+[node name="Explosion" type="GPUParticles2D" parent="." unique_id=235057130]
+emitting = false
+texture = ExtResource("8_mnegl")
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_y8cwd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=298187284]
+libraries/ = SubResource("AnimationLibrary_j2gbx")
+
+[node name="Iman" type="Area2D" parent="." unique_id=395941439 node_paths=PackedStringArray("jugador")]
+unique_name_in_owner = true
+collision_layer = 256
+collision_mask = 4
+script = ExtResource("9_mnegl")
+jugador = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Iman" unique_id=106066370]
+shape = SubResource("CircleShape2D_j2gbx")
+
+[connection signal="area_entered" from="Iman" to="Iman" method="_on_area_entered"]

@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://df3ooun8dkr8m"]
+
+[ext_resource type="Script" uid="uid://b3tmnagc2lm28" path="res://escenas/enemigos/enemigo.gd" id="1_y5am3"]
+[ext_resource type="Texture2D" uid="uid://i0h15xh042lb" path="res://assets/enemigos/narval.png" id="2_v1tah"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_und4c"]
+radius = 20.0
+height = 84.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1umyg"]
+radius = 3.590416
+height = 71.2113
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rgida"]
+radius = 20.045023
+height = 92.124374
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hyley"]
+radius = 17.020172
+height = 106.06798
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y5am3"]
+radius = 762.0026
+
+[node name="Narval" type="CharacterBody2D" groups=["enemigos"]]
+collision_layer = 2
+collision_mask = 8
+script = ExtResource("1_y5am3")
+velocidad_de_movimiento = 175.0
+puntos_de_salud_maximos = 5.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(-5.9604645e-08, 1.0000005)
+scale = Vector2(0.22364843, 0.2152715)
+texture = ExtResource("2_v1tah")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CapsuleShape2D_und4c")
+
+[node name="Hitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+rotation = -1.5707964
+collision_layer = 16
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(27.000004, -75)
+rotation = 0.6796653
+shape = SubResource("CapsuleShape2D_1umyg")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-20, 6.9999986)
+rotation = 0.025856767
+shape = SubResource("CapsuleShape2D_rgida")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
+rotation = -1.5707964
+collision_layer = 32
+collision_mask = 64
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(27.000004, -75)
+rotation = 0.6796653
+shape = SubResource("CapsuleShape2D_1umyg")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-20, 6.9999986)
+rotation = 0.025856767
+shape = SubResource("CapsuleShape2D_hyley")
+
+[node name="Deteccion" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deteccion"]
+shape = SubResource("CircleShape2D_y5am3")
+
+[connection signal="body_entered" from="Deteccion" to="." method="_on_deteccion_body_entered"]
+[connection signal="body_exited" from="Deteccion" to="." method="_on_deteccion_body_exited"]
