@@ -1,12 +1,19 @@
 class_name Jugador
 extends CharacterBody2D
 
+signal derrotado 
+signal salud_cambiada(salud_nueva, salud_maxima)
+signal nivel_subido(nuevo_nivel)
+signal experiencia_ganada(cantidad)
+
 # ==============================================================================
 # PROPIEDADES EXPORTADAS (Visible en el Inspector)
 # ==============================================================================
+const BONDI_BETO_ROTO = preload("uid://cq8pe8gmvsgty")
 
 # Movimiento
-@export var velocidad_actual: float = 0.0 ## Velocidad horizontal/vertical base
+var velocidad_actual: float = 0.0 ## Velocidad horizontal/vertical basev
+var muriendo: bool = false
 @export var aceleración: float = 600.0
 @export var velocidad_de_giro: float = 3.0
 @export var friccion: float = 400.0
@@ -31,6 +38,7 @@ extends CharacterBody2D
 @onready var sonido_disparo: AudioStreamPlayer2D = $SonidoDisparo
 @onready var sonido_dañado: AudioStreamPlayer2D = $SonidoDañado
 @onready var sonido_level_up: AudioStreamPlayer2D = $SonidoLevelUp
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 @onready var timer_misil: Timer = $TimerMisil # ¡Debe existir este Timer en la escena!
 @onready var sprite: Sprite2D = $Submarino
@@ -56,10 +64,6 @@ var puede_esquivar: bool = true
 var puede_activar_anillo: bool = true
 var invulnerable: bool = false
 
-signal derrotado 
-signal salud_cambiada(salud_nueva, salud_maxima)
-signal nivel_subido(nuevo_nivel)
-signal experiencia_ganada(cantidad)
 
 
 # ==============================================================================
@@ -84,6 +88,8 @@ func _ready():
 
 
 func _physics_process(delta: float) -> void:
+	if muriendo:
+		return
 	if Input.is_action_pressed("disparar") and puede_atacar:
 		puede_atacar = false
 		var direccion_de_disparo := global_position.direction_to(get_global_mouse_position())
@@ -168,9 +174,14 @@ func al_cambiar_de_salud(nueva_salud: float) -> void:
 
 
 func morir():
+	muriendo = true
+	collision_shape_2d.disabled = true
+	
 	animation_player.play("explotar")
 	await animation_player.animation_finished
 	derrotado.emit()
+	sprite.texture = BONDI_BETO_ROTO
+	await get_tree().create_timer(2).timeout
 	get_tree().reload_current_scene.call_deferred()
 
 

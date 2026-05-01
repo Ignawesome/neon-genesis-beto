@@ -159,6 +159,7 @@ _data = {
 }
 
 [node name="Misil" type="Area2D" unique_id=1443267814]
+scale = Vector2(1.54, 1.54)
 collision_layer = 64
 collision_mask = 34
 script = ExtResource("1_g2og5")
