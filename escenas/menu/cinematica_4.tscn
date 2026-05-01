@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bidc5dfqosnis"]
+
+[ext_resource type="Script" uid="uid://dtomrlgch4w57" path="res://escenas/menu/cinematica_4.gd" id="1_6cdvx"]
+[ext_resource type="Texture2D" uid="uid://b6wxjjv4d7l81" path="res://assets/cinematica/cinematica4.jpg" id="1_o2t5f"]
+
+[node name="Cinematica4" type="Control" unique_id=1339212312]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6cdvx")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1674186488]
+position = Vector2(641.5, 359.5)
+scale = Vector2(0.803125, 0.80333334)
+texture = ExtResource("1_o2t5f")
+
+[node name="continuar" type="Button" parent="." unique_id=227256525]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -136.0
+offset_top = -51.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "CONTINUAR"
+flat = true
+
+[connection signal="pressed" from="continuar" to="." method="_on_continuar_pressed"]

@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://d2wfj1m7x4y7m"]
+
+[ext_resource type="Script" uid="uid://qv75jxv7rpn0" path="res://escenas/menu/menu.gd" id="1_4gq0v"]
+[ext_resource type="Texture2D" uid="uid://de4n60ll1khpl" path="res://assets/Bandera.jpg" id="1_yqnh4"]
+[ext_resource type="Texture2D" uid="uid://l3wonp24fode" path="res://assets/spinetta.png" id="2_4gq0v"]
+[ext_resource type="AudioStream" uid="uid://ldjwoqec7qsy" path="res://assets/audio/musica/himno.wav" id="2_ijpqp"]
+
+[node name="Menu" type="Control" unique_id=933442087]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4gq0v")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=14746111]
+self_modulate = Color(1, 1, 1, 0.94509804)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -38.5
+offset_right = 4.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yqnh4")
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=637412588]
+self_modulate = Color(1, 1, 1, 0.22352941)
+layout_mode = 0
+offset_top = -43.0
+offset_right = 1312.0
+offset_bottom = 727.0
+texture = ExtResource("2_4gq0v")
+
+[node name="Jugar" type="Button" parent="." unique_id=1657939131]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.5
+offset_top = -83.0
+offset_right = 170.5
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "JUGAR"
+flat = true
+
+[node name="himno" type="AudioStreamPlayer" parent="." unique_id=788955298]
+stream = ExtResource("2_ijpqp")
+autoplay = true
+
+[connection signal="pressed" from="Jugar" to="." method="_on_jugar_pressed"]
