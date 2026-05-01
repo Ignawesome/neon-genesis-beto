@@ -26,6 +26,7 @@ buses/default_bus_layout="uid://jsmf6b3wff61"
 [autoload]
 
 Globales="*res://scripts/globales.gd"
+Musica="*uid://bs02h2hs4tyyp"
 
 [display]
 

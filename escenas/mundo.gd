@@ -7,6 +7,7 @@ const RANURA_CORAZON = preload("uid://tnju06m5ruxw")
 
 func _ready() -> void:
 	Globales.jugador.salud_cambiada.connect(actualizar_hp)
+	Musica.pausar()
 
 func actualizar_hp(nueva_salud: int, _hp_maximo: int):
 	for ranura_corazon: Node in contenedor_hp.get_children():

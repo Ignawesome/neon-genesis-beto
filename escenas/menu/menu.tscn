@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://qv75jxv7rpn0" path="res://escenas/menu/menu.gd" id="1_4gq0v"]
 [ext_resource type="Texture2D" uid="uid://de4n60ll1khpl" path="res://assets/Bandera.jpg" id="1_yqnh4"]
 [ext_resource type="Texture2D" uid="uid://l3wonp24fode" path="res://assets/spinetta.png" id="2_4gq0v"]
-[ext_resource type="AudioStream" uid="uid://ldjwoqec7qsy" path="res://assets/audio/musica/himno.wav" id="2_ijpqp"]
+[ext_resource type="AudioStream" uid="uid://d24ubun81taa4" path="res://assets/audio/musica/himno.wav" id="2_ijpqp"]
 
 [node name="Menu" type="Control" unique_id=933442087]
 layout_mode = 3
@@ -53,6 +53,6 @@ flat = true
 
 [node name="himno" type="AudioStreamPlayer" parent="." unique_id=788955298]
 stream = ExtResource("2_ijpqp")
-autoplay = true
+volume_db = -19.909
 
 [connection signal="pressed" from="Jugar" to="." method="_on_jugar_pressed"]

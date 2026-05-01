@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://br4f7ctsf4jev"]
 
-[ext_resource type="Script" uid="uid://ci3np1wdjvgoy" path="res://escenas/menu/cinematica_6.gd" id="1_3usxi"]
+[ext_resource type="Script" uid="uid://f467a8t6c0u1" path="res://escenas/menu/cinematica.gd" id="1_3usxi"]
 [ext_resource type="Texture2D" uid="uid://dks5f86breapx" path="res://assets/cinematica/cinematica6.jpg" id="1_n102u"]
 
 [node name="Cinematica6" type="Control" unique_id=1869844745]

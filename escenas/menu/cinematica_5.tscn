@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b4qucfjmdswb5"]
 
 [ext_resource type="Texture2D" uid="uid://cisjpvs6s71bd" path="res://assets/cinematica/cinematica5.jpg" id="1_0gdwr"]
-[ext_resource type="Script" uid="uid://ox2lqjg8dwaq" path="res://escenas/menu/cinematica_5.gd" id="1_q528u"]
+[ext_resource type="Script" uid="uid://f467a8t6c0u1" path="res://escenas/menu/cinematica.gd" id="1_q528u"]
 
 [node name="Cinematica5" type="Control" unique_id=1290810976]
 layout_mode = 3
