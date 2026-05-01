@@ -27,6 +27,7 @@ collision_mask = 8
 script = ExtResource("1_jpt84")
 velocidad_de_movimiento = 175.0
 puntos_de_salud_maximos = 5.0
+probabilidad_orbe_hp = 0.1
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1820233895]
 position = Vector2(2, -23.00003)

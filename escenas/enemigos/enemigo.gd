@@ -91,10 +91,7 @@ func _on_hitbox_body_entered(body: Node2D):
 		var jugador_detectado: Jugador = body
 		# Llamar a la función del jugador para hacerle daño y activar la lógica de esquiva
 		jugador_detectado.recibir_danio(danio_por_contacto)
-		
-		# Eliminamos al enemigo por contacto (como en Vampire Survivors)
-		# En una versión más avanzada, se podría usar un cooldown
-		morir.call_deferred()
+		recibir_danio(jugador_detectado.fuerza_de_choque)
 
 
 # ==============================================================================

@@ -2,6 +2,7 @@
 
 [ext_resource type="Material" uid="uid://derpqkc1oebjk" path="res://escenas/jugador/material_daño.tres" id="1_vkjxu"]
 [ext_resource type="Script" uid="uid://gl6tucsav3ok" path="res://escenas/jugador/jugador.gd" id="1_vquro"]
+[ext_resource type="Texture2D" uid="uid://dr3f6rhrm4udm" path="res://assets/jugador/bondi_beto_roto.png" id="3_j2gbx"]
 [ext_resource type="AudioStream" uid="uid://by2iafmryrla2" path="res://assets/audio/sfx/disparo.wav" id="3_jkpmm"]
 [ext_resource type="Texture2D" uid="uid://difwcwdstlu3n" path="res://assets/jugador/nave_beto.png" id="3_mnegl"]
 [ext_resource type="AudioStream" uid="uid://3rgdq7vfbpcn" path="res://assets/audio/sfx/level_up.wav" id="4_vkjxu"]
@@ -59,7 +60,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Submarino:visible")
+tracks/1/path = NodePath("SpriteNormal:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -119,7 +120,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Submarino:rotation")
+tracks/6/path = NodePath("SpriteNormal:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -147,7 +148,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Submarino:rotation")
+tracks/1/path = NodePath("SpriteNormal:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -174,7 +175,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Submarino:visible")
+tracks/1/path = NodePath("SpriteNormal:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -255,7 +256,7 @@ point_count = 2
 offsets = PackedFloat32Array(0.0016611295, 0.5199336, 1)
 colors = PackedColorArray(0.7529412, 1, 1, 1, 0, 0.9184935, 0.8071811, 1, 0.13330114, 0.22413787, 0.63382185, 1)
 
-[node name="Jugador" type="CharacterBody2D" unique_id=1183311057]
+[node name="Jugador" type="CharacterBody2D" unique_id=1183311057 node_paths=PackedStringArray("sonido_disparo", "sonido_level_up", "sonido_dañado", "sonido_explosion", "collision_shape_2d", "timer_misil", "sprite_normal", "sprite_roto", "next_lvl_bar", "animation_player")]
 collision_mask = 28
 script = ExtResource("1_vquro")
 velocidad_de_giro = 5.0
@@ -263,13 +264,32 @@ fuerza_de_ataque = 2.0
 misil_cooldown = 0.5
 radio_de_ataque = 2000.0
 "material_daño" = ExtResource("1_vkjxu")
+sonido_disparo = NodePath("SonidoDisparo")
+sonido_level_up = NodePath("SonidoLevelUp")
+"sonido_dañado" = NodePath("SonidoDañado")
+sonido_explosion = NodePath("SonidoExplosion")
+collision_shape_2d = NodePath("CollisionShape2D")
+timer_misil = NodePath("TimerMisil")
+sprite_normal = NodePath("SpriteNormal")
+sprite_roto = NodePath("SpriteRoto")
+next_lvl_bar = NodePath("CanvasLayer/NextLvlBar")
+animation_player = NodePath("AnimationPlayer")
 
-[node name="Submarino" type="Sprite2D" parent="." unique_id=1079429370]
+[node name="SpriteNormal" type="Sprite2D" parent="." unique_id=1079429370]
 texture_filter = 1
 use_parent_material = true
 rotation = -1.5707964
 scale = Vector2(0.305, 0.305)
 texture = ExtResource("3_mnegl")
+
+[node name="SpriteRoto" type="Sprite2D" parent="." unique_id=1938172214]
+visible = false
+texture_filter = 1
+use_parent_material = true
+position = Vector2(-1, -1)
+rotation = -1.5707964
+scale = Vector2(0.255, 0.255)
+texture = ExtResource("3_j2gbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1138392618]
 position = Vector2(1, 1)

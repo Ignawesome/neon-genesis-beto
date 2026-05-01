@@ -9,11 +9,11 @@ signal experiencia_ganada(cantidad)
 # ==============================================================================
 # PROPIEDADES EXPORTADAS (Visible en el Inspector)
 # ==============================================================================
-const BONDI_BETO_ROTO = preload("uid://cq8pe8gmvsgty")
 
 # Movimiento
 var velocidad_actual: float = 0.0 ## Velocidad horizontal/vertical basev
 var muriendo: bool = false
+
 @export var aceleración: float = 600.0
 @export var velocidad_de_giro: float = 3.0
 @export var friccion: float = 400.0
@@ -25,6 +25,7 @@ var muriendo: bool = false
 @export var misil_cooldown := 1.0     ## Frecuencia de disparo (ej: 1.0 por segundo)
 @export var radio_de_ataque: float = 500.0 ## Distancia máxima para buscar enemigos
 @export var duración_de_misil: float = 1.0 ## Segundos antes de que el misil desaparezca
+@export var fuerza_de_choque: float = 1.0
 
 # Defensa
 @export var puntos_de_salud_maximos := 5         ## Vida máxima del personaje
@@ -35,15 +36,18 @@ var muriendo: bool = false
 # ==============================================================================
 # REFERENCIAS Y PRECARGAS
 # ==============================================================================
-@onready var sonido_disparo: AudioStreamPlayer2D = $SonidoDisparo
-@onready var sonido_dañado: AudioStreamPlayer2D = $SonidoDañado
-@onready var sonido_level_up: AudioStreamPlayer2D = $SonidoLevelUp
-@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
+@export var sonido_disparo: AudioStreamPlayer2D
+@export var sonido_level_up: AudioStreamPlayer2D
+@export var sonido_dañado: AudioStreamPlayer2D
+@export var sonido_explosion: AudioStreamPlayer2D
 
-@onready var timer_misil: Timer = $TimerMisil # ¡Debe existir este Timer en la escena!
-@onready var sprite: Sprite2D = $Submarino
-@onready var next_lvl_bar: ProgressBar = %NextLvlBar
-@onready var animation_player: AnimationPlayer = %AnimationPlayer
+@export var collision_shape_2d: CollisionShape2D
+
+@export var timer_misil: Timer
+@export var sprite_normal: Sprite2D
+@export var sprite_roto: Sprite2D
+@export var next_lvl_bar: ProgressBar
+@export var animation_player: AnimationPlayer
 
 
 # ==============================================================================
@@ -72,6 +76,8 @@ var invulnerable: bool = false
 
 
 func _ready():
+	sprite_normal.show()
+	sprite_roto.hide()
 	# Inicializar la salud
 	salud_actual = puntos_de_salud_maximos
 	salud_cambiada.emit(salud_actual, puntos_de_salud_maximos)
@@ -141,12 +147,14 @@ func girar(direccion: float, delta: float) -> void:
 func esquivar() -> void:
 	invulnerable = true
 	puede_esquivar = false
+	fuerza_de_choque *= 3.0
 	animation_player.play("esquivar")
 	get_tree().create_timer(1.0).timeout.connect(
 		func():
 			invulnerable = false
 			puede_esquivar = true
 			animation_player.play("RESET")
+			fuerza_de_choque /= 3.0
 	)
 
 
@@ -176,11 +184,13 @@ func al_cambiar_de_salud(nueva_salud: float) -> void:
 func morir():
 	muriendo = true
 	collision_shape_2d.disabled = true
+	sprite_normal.hide()
+	sprite_roto.show()
 	
 	animation_player.play("explotar")
 	await animation_player.animation_finished
 	derrotado.emit()
-	sprite.texture = BONDI_BETO_ROTO
+	
 	await get_tree().create_timer(2).timeout
 	get_tree().reload_current_scene.call_deferred()
 
