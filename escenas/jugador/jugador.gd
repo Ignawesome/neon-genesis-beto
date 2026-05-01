@@ -26,6 +26,7 @@ var muriendo: bool = false
 @export var radio_de_ataque: float = 500.0 ## Distancia máxima para buscar enemigos
 @export var duración_de_misil: float = 1.0 ## Segundos antes de que el misil desaparezca
 @export var fuerza_de_choque: float = 1.0
+@export var knockback_impacto: float = 500.0
 
 # Defensa
 @export var puntos_de_salud_maximos := 5         ## Vida máxima del personaje

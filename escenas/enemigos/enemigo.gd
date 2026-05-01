@@ -16,6 +16,9 @@ extends CharacterBody2D
 @export var fuerza_de_ataque := 1
 @export var velocidad_de_giro: float = 5.0 
 
+var velocidad_knockback: Vector2 = Vector2.ZERO
+var friccion_suelo: float = 3000.0 # Qué tan rápido frena después del empuje
+
 # ==============================================================================
 # VARIABLES Y REFERENCIAS
 # ==============================================================================
@@ -51,6 +54,19 @@ func _physics_process(delta) -> void:
 	
 	# 2. Aplicar el movimiento (podés multiplicar directamente el vector, es más limpio)
 	velocity = direccion * velocidad_de_movimiento
+	
+	# var direccion = global_position.direction_to(objetivo.global_position)
+	# var velocidad_normal = direccion * velocidad_de_movimiento
+	
+	# 1. Reducir el knockback gradualmente usando fricción
+	# move_toward acerca el vector al Vector2.ZERO (freno total)
+	velocidad_knockback = velocidad_knockback.move_toward(Vector2.ZERO, friccion_suelo * delta)
+	
+	# 2. Combinar ambas velocidades
+	# El enemigo intenta caminar hacia adelante, pero el knockback lo arrastra hacia atrás
+	velocity = velocity + velocidad_knockback
+	
+	# 3. Moverse
 	move_and_slide()
 	
 	# 3. Calcular hacia dónde tiene que mirar
@@ -68,16 +84,17 @@ func _physics_process(delta) -> void:
 # ==============================================================================
 
 # Se llama desde el Misil.gd cuando golpea a este enemigo
-func recibir_danio(cantidad_de_danio: float):
+func recibir_danio(cantidad_de_daño: float):
 	if esta_muerto:
 		return
 		
-	salud_actual -= cantidad_de_danio
+	salud_actual -= cantidad_de_daño
 	
 	material = material_daño
 	await get_tree().create_timer(0.25).timeout
 	material = null
-	
+	var texto_daño := NumeroFlotante.crear_numero(int(cantidad_de_daño), global_position)
+	get_tree().current_scene.add_child(texto_daño)
 	# print("Enemigo golpeado, HP restante: %f" % salud_actual) # Mostrar en consola
 	
 	if salud_actual <= 0:
@@ -92,7 +109,13 @@ func _on_hitbox_body_entered(body: Node2D):
 		# Llamar a la función del jugador para hacerle daño y activar la lógica de esquiva
 		jugador_detectado.recibir_danio(danio_por_contacto)
 		recibir_danio(jugador_detectado.fuerza_de_choque)
+		var direccion := self.global_position - jugador_detectado.global_position
+		aplicar_knockback(direccion.normalized() * jugador_detectado.knockback_impacto)
 
+
+func aplicar_knockback(fuerza: Vector2) -> void:
+	# Sumamos la fuerza. Si recibe varios misiles a la vez, sale volando más rápido
+	velocidad_knockback += fuerza
 
 # ==============================================================================
 # PROYECTILES

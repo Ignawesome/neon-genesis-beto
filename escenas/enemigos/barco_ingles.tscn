@@ -75,6 +75,10 @@ bus = &"SFX"
 [node name="TimerMisil" type="Timer" parent="." unique_id=1399413646]
 autostart = true
 
+[node name="Label" type="Label" parent="." unique_id=1774083688]
+offset_right = 40.0
+offset_bottom = 23.0
+
 [connection signal="body_entered" from="Deteccion" to="." method="_on_deteccion_body_entered"]
 [connection signal="body_exited" from="Deteccion" to="." method="_on_deteccion_body_exited"]
 [connection signal="timeout" from="TimerMisil" to="." method="_on_timer_misil_timeout"]

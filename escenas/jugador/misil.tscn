@@ -163,6 +163,7 @@ scale = Vector2(1.54, 1.54)
 collision_layer = 64
 collision_mask = 34
 script = ExtResource("1_g2og5")
+fuerza_de_knockback = 500.0
 
 [node name="Misil" type="Sprite2D" parent="." unique_id=1019801976]
 position = Vector2(1, -1)

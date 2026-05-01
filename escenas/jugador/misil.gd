@@ -12,6 +12,9 @@ extends Area2D
 var velocidad_heredada: Vector2 = Vector2.ZERO 
 # Variable para guardar el cálculo final
 var velocidad_total: Vector2 = Vector2.ZERO
+
+@export var fuerza_de_knockback: float = 800.0 
+
 # ==============================================================================
 # VARIABLES Y REFERENCIAS
 # ==============================================================================
@@ -72,9 +75,16 @@ func _on_body_entered(body: Node2D):
 		# 1. Aplicar daño al enemigo
 		body.recibir_danio(danio_a_infligir)
 		
-		# 2. Reproducir animacion de explosion
-		explotar()
+		# 2. APLICAR KNOCKBACK
+		# Verificamos si el cuerpo tiene la función creada antes de llamarla
+		if body.has_method("aplicar_knockback"):
+			# El empuje va en la misma dirección que el misil
+			var vector_empuje = direccion * fuerza_de_knockback
+			body.aplicar_knockback(vector_empuje)
 		
+		# 3. Reproducir animacion de explosion
+		explotar()
+	
 	# Importante: Si golpea otros cuerpos (como rocas o corales, que son StaticBody2D)
 	# el misil simplemente debe atravesarlos, o bien podrías agregar aquí un "queue_free()"
 	# si quisieras que el misil se destruya contra rocas. Por ahora, solo se destruye
