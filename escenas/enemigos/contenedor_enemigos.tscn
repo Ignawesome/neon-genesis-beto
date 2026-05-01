@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://dx7l18jqwhsm" path="res://scripts/contenedor_enemigos.gd" id="1_kq2r1"]
 [ext_resource type="PackedScene" uid="uid://chdb6ur4yk4xe" path="res://escenas/enemigos/barco_ingles.tscn" id="2_j5340"]
 
-[node name="ContenedorEnemigos" type="Node2D" unique_id=1482795191]
+[node name="ContenedorEnemigos" type="Node2D" unique_id=1482795191 node_paths=PackedStringArray("timer_spawn_enemigo", "timer_tasa_enemigos")]
 script = ExtResource("1_kq2r1")
 enemigos = Array[PackedScene]([ExtResource("2_j5340")])
+timer_spawn_enemigo = NodePath("TimerSpawnEnemigo")
+timer_tasa_enemigos = NodePath("TimerTasaEnemigos")
 tiempo_aumento_enemigos = 60
 
 [node name="TimerSpawnEnemigo" type="Timer" parent="." unique_id=1207172667]

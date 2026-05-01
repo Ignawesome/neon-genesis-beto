@@ -11,7 +11,7 @@ signal experiencia_ganada(cantidad)
 # ==============================================================================
 
 # Movimiento
-var velocidad_actual: float = 0.0 ## Velocidad horizontal/vertical basev
+var velocidad_actual: float = 0.0: set = al_cambiar_velocidad ## Velocidad horizontal/vertical basev
 var muriendo: bool = false
 
 @export var aceleración: float = 600.0
@@ -50,6 +50,8 @@ var muriendo: bool = false
 @export var next_lvl_bar: ProgressBar
 @export var animation_player: AnimationPlayer
 
+@export var motor_1: CPUParticles2D
+@export var motor_2: CPUParticles2D
 
 # ==============================================================================
 # SISTEMA DE NIVELACIÓN Y ESTADÍSTICAS
@@ -316,3 +318,29 @@ func lanzar_misil_a_direccion(direccion_de_disparo: Vector2) -> void:
 	
 	# Aquí podrías rotar el sprite del misil para que apunte a la dirección
 	# nuevo_misil.rotation = direccion_de_disparo.angle()
+
+
+func al_cambiar_velocidad(nueva_velocidad: float) -> void:
+	if not is_node_ready():
+		await ready
+		
+	velocidad_actual = nueva_velocidad
+	
+	# Usamos clampf() por seguridad, para asegurar que la proporción NUNCA 
+	# se pase de 1.0 o baje de 0.0, incluso si el colectivo recibe un empuje extra.
+	var proporcion: float = clampf(velocidad_actual / velocidad_maxima, 0.0, 1.0)
+	
+	var min_velocity_at_max_speed := 160.0
+	var max_velocity_at_max_speed := 440.0
+	
+	# Calculamos los valores usando lerp(). 
+	# Cuando proporcion es 0.0, devuelve 1.0. Cuando es 1.0, devuelve la velocidad máxima.
+	var calc_min = lerp(1.0, min_velocity_at_max_speed, proporcion)
+	var calc_max = lerp(1.0, max_velocity_at_max_speed, proporcion)
+	
+	# Aplicamos los cálculos a los motores
+	motor_1.initial_velocity_min = calc_min
+	motor_1.initial_velocity_max = calc_max
+	
+	motor_2.initial_velocity_min = calc_min
+	motor_2.initial_velocity_max = calc_max

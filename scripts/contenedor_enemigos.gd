@@ -3,17 +3,38 @@ extends Node2D
 
 @export var enemigos: Array[PackedScene]
 
-@onready var timer_spawn_enemigo: Timer = $TimerSpawnEnemigo
-@onready var timer_tasa_enemigos: Timer = $TimerTasaEnemigos
+@export var timer_spawn_enemigo: Timer
+@export var timer_tasa_enemigos: Timer
 
 @export var b_aumentar_frecuencia_enemigos := true
 @export var tiempo_aumento_enemigos := 5
-
 @export var tiempo_entre_enemigos := 3.0
+
 
 func _ready() -> void:
 	timer_spawn_enemigo.timeout.connect(spawnear_enemigo)
-	empezar_spawnear_enemigos(tiempo_aumento_enemigos)
+	timer_tasa_enemigos.timeout.connect(aumentar_frecuencia_enemigos)
+
+
+# --- FUNCIONES PARA EL MANAGER DE OLEADA ---
+
+func configurar_y_arrancar(nuevos_enemigos: Array[PackedScene], tasa_inicial: float):
+	# Actualizamos los datos para la nueva oleada
+	enemigos = nuevos_enemigos
+	tiempo_entre_enemigos = tasa_inicial
+	
+	# Reiniciamos los timers
+	timer_spawn_enemigo.wait_time = tiempo_entre_enemigos
+	timer_spawn_enemigo.start()
+	
+	timer_tasa_enemigos.start(tiempo_aumento_enemigos)
+	print("Arrancó nueva oleada. Tasa inicial: ", tasa_inicial)
+
+
+func detener_spawns():
+	timer_spawn_enemigo.stop()
+	timer_tasa_enemigos.stop()
+
 
 func empezar_spawnear_enemigos(durante: float):
 	timer_tasa_enemigos.start(durante)

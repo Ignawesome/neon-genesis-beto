@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://gn7ay2yc1jv5" path="res://assets/particulas/fire_01.png" id="8_mnegl"]
 [ext_resource type="Script" uid="uid://bg6lns8xsld3m" path="res://escenas/jugador/iman.gd" id="9_mnegl"]
 [ext_resource type="Texture2D" uid="uid://crqo1kmpq7ro8" path="res://assets/particulas/flame_05.png" id="10_j2gbx"]
+[ext_resource type="Texture2D" uid="uid://c8pem7d287sd4" path="res://assets/particulas/circle_05.png" id="12_y8cwd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_opouk"]
 radius = 21.0
@@ -256,7 +257,7 @@ point_count = 2
 offsets = PackedFloat32Array(0.0016611295, 0.5199336, 1)
 colors = PackedColorArray(0.7529412, 1, 1, 1, 0, 0.9184935, 0.8071811, 1, 0.13330114, 0.22413787, 0.63382185, 1)
 
-[node name="Jugador" type="CharacterBody2D" unique_id=1183311057 node_paths=PackedStringArray("sonido_disparo", "sonido_level_up", "sonido_dañado", "sonido_explosion", "collision_shape_2d", "timer_misil", "sprite_normal", "sprite_roto", "next_lvl_bar", "animation_player")]
+[node name="Jugador" type="CharacterBody2D" unique_id=1183311057 node_paths=PackedStringArray("sonido_disparo", "sonido_level_up", "sonido_dañado", "sonido_explosion", "collision_shape_2d", "timer_misil", "sprite_normal", "sprite_roto", "next_lvl_bar", "animation_player", "motor_1", "motor_2")]
 collision_mask = 28
 script = ExtResource("1_vquro")
 velocidad_de_giro = 5.0
@@ -274,6 +275,8 @@ sprite_normal = NodePath("SpriteNormal")
 sprite_roto = NodePath("SpriteRoto")
 next_lvl_bar = NodePath("CanvasLayer/NextLvlBar")
 animation_player = NodePath("AnimationPlayer")
+motor_1 = NodePath("CPUParticles2D")
+motor_2 = NodePath("CPUParticles2D2")
 
 [node name="SpriteNormal" type="Sprite2D" parent="." unique_id=1079429370]
 texture_filter = 1
@@ -387,5 +390,12 @@ anchor_bottom = 1.0
 offset_top = -27.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2052600274]
+visible = false
+modulate = Color(1, 0.7607843, 0.4117647, 1)
+show_behind_parent = true
+scale = Vector2(0.63, 0.63)
+texture = ExtResource("12_y8cwd")
 
 [connection signal="area_entered" from="Iman" to="Iman" method="_on_area_entered"]
