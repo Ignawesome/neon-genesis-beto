@@ -212,4 +212,5 @@ func spawnear_moto() -> void:
 	var distancia := randf_range(25, 150)
 	var direccion := Vector2(randf_range(-1, 1), randf_range(-1, 1))
 	moto.global_position = self.global_position + direccion * distancia
+	#ContenedorEnemigos.aplicar_dificultad(moto, )
 	

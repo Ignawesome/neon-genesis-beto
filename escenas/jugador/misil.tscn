@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://beqg12lmsofl8"]
 
 [ext_resource type="Script" uid="uid://c1ip3vaadyy2i" path="res://escenas/jugador/misil.gd" id="1_g2og5"]
-[ext_resource type="Texture2D" uid="uid://bh0wa3qfc5wmj" path="res://assets/jugador/misil.png" id="2_hwk0l"]
+[ext_resource type="Texture2D" uid="uid://dg8b7ratshvyc" path="res://assets/nota_musical.png" id="2_egb4o"]
 [ext_resource type="AudioStream" uid="uid://bu5cu0fsbpulh" path="res://assets/audio/sfx/explosion.wav" id="3_hwk0l"]
 [ext_resource type="Texture2D" uid="uid://gn7ay2yc1jv5" path="res://assets/particulas/fire_01.png" id="4_egb4o"]
 
@@ -86,6 +86,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Misil:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.025, 0.025)]
+}
 
 [sub_resource type="Animation" id="Animation_egb4o"]
 resource_name = "explotar"
@@ -152,10 +164,40 @@ tracks/4/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_p65eo"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Misil:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.025, 0.025), Vector2(0.03, 0.03), Vector2(0.025, 0.025)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("Misil:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.03333333, 0.043144193, 0.3, 0.53333336, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 0, 0, 1), Color(0, 0.34466678, 0.94, 1), Color(0.05000007, 1, 0, 1), Color(1, 0.98333335, 0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p65eo"]
 _data = {
 &"RESET": SubResource("Animation_u7ek4"),
-&"explotar": SubResource("Animation_egb4o")
+&"explotar": SubResource("Animation_egb4o"),
+&"idle": SubResource("Animation_p65eo")
 }
 
 [node name="Misil" type="Area2D" unique_id=1443267814]
@@ -167,8 +209,8 @@ fuerza_de_knockback = 500.0
 
 [node name="Misil" type="Sprite2D" parent="." unique_id=1019801976]
 position = Vector2(1, -1)
-scale = Vector2(0.47, 0.47)
-texture = ExtResource("2_hwk0l")
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("2_egb4o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=337366297]
 rotation = 1.5707964
@@ -188,4 +230,7 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_8ef7i")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1151754739]
+libraries/ = SubResource("AnimationLibrary_p65eo")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." unique_id=868351220]
 libraries/ = SubResource("AnimationLibrary_p65eo")

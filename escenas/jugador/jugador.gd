@@ -21,6 +21,7 @@ var muriendo: bool = false
 @export var velocidad_maxima_reversa = 150.0
 
 # Ataque
+var min_misil_cooldown: float = 0.1
 @export var fuerza_de_ataque := 1.0        ## Daño base de los misiles
 @export var misil_cooldown := 1.0     ## Frecuencia de disparo (ej: 1.0 por segundo)
 @export var radio_de_ataque: float = 500.0 ## Distancia máxima para buscar enemigos
@@ -260,7 +261,7 @@ func subir_de_nivel() -> void:
 	if nivel % 3 == 0: 	puntos_de_salud_maximos += 1
 	
 	fuerza_de_ataque += 0.5
-	misil_cooldown *= 0.9
+	misil_cooldown *= max(misil_cooldown * 0.9, min_misil_cooldown)
 	timer_misil.wait_time = misil_cooldown
 	probabilidad_de_esquiva = min(probabilidad_de_esquiva + 0.05, 0.5) # Máximo 50% de esquiva
 	

@@ -58,6 +58,7 @@ func _ready():
 func _process(delta):
 	# Mover el misil constantemente en la dirección asignada
 	global_position += direccion * velocidad_misil * delta
+	modulate.h += 0.5 * delta
 
 # ==============================================================================
 # MANEJADORES DE SEÑALES

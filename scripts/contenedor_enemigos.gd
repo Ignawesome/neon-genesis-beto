@@ -57,10 +57,15 @@ func spawnear_enemigo():
 	add_child(nodo_enemigo)
 	nodo_enemigo.objetivo = Globales.jugador
 	nodo_enemigo.global_position = get_posicion_al_azar()
-	nodo_enemigo.fuerza_de_ataque *= dificultad
-	nodo_enemigo.velocidad_de_movimiento *= dificultad
-	nodo_enemigo.puntos_de_salud_maximos *= dificultad
-	nodo_enemigo.cantidad_de_motos *= dificultad
+	aplicar_dificultad(nodo_enemigo, dificultad)
+
+
+static func aplicar_dificultad(_enemigo: Enemigo, _dificultad: int) -> Enemigo:
+	_enemigo.fuerza_de_ataque *= _dificultad
+	_enemigo.velocidad_de_movimiento *= _dificultad
+	_enemigo.puntos_de_salud_maximos *= _dificultad
+	_enemigo.cantidad_de_motos *= _dificultad
+	return _enemigo
 
 
 func get_posicion_al_azar():
