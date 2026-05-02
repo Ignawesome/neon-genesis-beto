@@ -82,7 +82,7 @@ _data = {
 
 [node name="Anillo" type="Area2D" unique_id=2038895586]
 collision_layer = 256
-collision_mask = 64
+collision_mask = 66
 script = ExtResource("1_hklbu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=151901889]
