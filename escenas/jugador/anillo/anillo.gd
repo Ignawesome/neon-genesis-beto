@@ -24,3 +24,8 @@ func _ready() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area is Misil:
 		area.explotar()
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if body is Enemigo:
+		body.recibir_danio(Globales.jugador.fuerza_de_ataque)

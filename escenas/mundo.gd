@@ -31,4 +31,3 @@ func agregar_nuevo_corazón():
 func actualizar_monedas(cantidad: int) -> void:
 	puntaje += cantidad
 	monedas_label.text = "$%s" % puntaje
-	

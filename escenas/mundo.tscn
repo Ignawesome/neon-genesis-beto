@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://tnju06m5ruxw" path="res://escenas/interfaz/ranura_corazon.tscn" id="4_v12yk"]
 [ext_resource type="FontFile" uid="uid://du2xuglb6lp4" path="res://PixelifySans-VariableFont_wght.ttf" id="12_2q7jt"]
 [ext_resource type="AudioStream" uid="uid://ctn1rg55eutdd" path="res://assets/audio/musica/capitan-beto.wav" id="12_kckb2"]
+[ext_resource type="Script" uid="uid://jh67ombqwdey" path="res://escenas/tutorial.gd" id="13_kxf8l"]
+[ext_resource type="Texture2D" uid="uid://cke2gvhpeu8x3" path="res://assets/interfaz/keyboard-&-mouse_sheet_double.png" id="13_ry7fl"]
 [ext_resource type="Script" uid="uid://bmtn1254p4yj5" path="res://escenas/capa_pausa.gd" id="15_ry7fl"]
 [ext_resource type="PackedScene" uid="uid://ct3ni84jfra4u" path="res://escenas/enemigos/contenedor_enemigos.tscn" id="16_5bxjq"]
 
@@ -50,6 +52,30 @@ font_color = Color(0.72156864, 0.59607846, 0.30588236, 1)
 outline_size = 13
 outline_color = Color(0.26657522, 0.2665752, 0.2665752, 1)
 stacked_outline_count = 1
+
+[sub_resource type="Theme" id="Theme_kxf8l"]
+default_font = ExtResource("12_2q7jt")
+default_font_size = 31
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry7fl"]
+atlas = ExtResource("13_ry7fl")
+region = Rect2(644, 403, 119, 86)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2cpl"]
+atlas = ExtResource("13_ry7fl")
+region = Rect2(402.0545, 133.54498, 92.23834, 118.59216)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xulgr"]
+atlas = ExtResource("13_ry7fl")
+region = Rect2(913, 133, 96, 115)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bxjq"]
+atlas = ExtResource("13_ry7fl")
+region = Rect2(262, 1558, 118, 79)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxf8l"]
+atlas = ExtResource("13_ry7fl")
+region = Rect2(1153, 1680, 124, 88)
 
 [sub_resource type="Gradient" id="Gradient_2q7jt"]
 offsets = PackedFloat32Array(0.21022727, 1)
@@ -227,6 +253,97 @@ offset_right = 1.0
 offset_bottom = 71.0
 grow_horizontal = 0
 label_settings = SubResource("LabelSettings_ry7fl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CapaInterfaz/Interfaz" unique_id=217094450]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 175.0
+offset_top = -262.0
+offset_right = 581.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_kxf8l")
+script = ExtResource("13_kxf8l")
+
+[node name="TutorialEsquivar" type="HBoxContainer" parent="CapaInterfaz/Interfaz/VBoxContainer" unique_id=691287591]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CapaInterfaz/Interfaz/VBoxContainer/TutorialEsquivar" unique_id=679940673]
+custom_minimum_size = Vector2(60.36, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_ry7fl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tutorial" type="Label" parent="CapaInterfaz/Interfaz/VBoxContainer/TutorialEsquivar" unique_id=1676849441]
+layout_mode = 2
+text = "para esquivar"
+
+[node name="TutorialDisparar" type="HBoxContainer" parent="CapaInterfaz/Interfaz/VBoxContainer" unique_id=1507115125]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CapaInterfaz/Interfaz/VBoxContainer/TutorialDisparar" unique_id=1278720982]
+custom_minimum_size = Vector2(60.36, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_t2cpl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tutorial" type="Label" parent="CapaInterfaz/Interfaz/VBoxContainer/TutorialDisparar" unique_id=2065940420]
+layout_mode = 2
+text = "para disparar"
+
+[node name="TutorialAnillo" type="HBoxContainer" parent="CapaInterfaz/Interfaz/VBoxContainer" unique_id=1922208211]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CapaInterfaz/Interfaz/VBoxContainer/TutorialAnillo" unique_id=83037924]
+custom_minimum_size = Vector2(60.36, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_xulgr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tutorial" type="Label" parent="CapaInterfaz/Interfaz/VBoxContainer/TutorialAnillo" unique_id=1495072003]
+layout_mode = 2
+text = "para usar el anillo"
+
+[node name="TutorialAcelerar" type="HBoxContainer" parent="CapaInterfaz/Interfaz/VBoxContainer" unique_id=538216147]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CapaInterfaz/Interfaz/VBoxContainer/TutorialAcelerar" unique_id=701249404]
+custom_minimum_size = Vector2(60.36, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_5bxjq")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tutorial" type="Label" parent="CapaInterfaz/Interfaz/VBoxContainer/TutorialAcelerar" unique_id=2035652654]
+layout_mode = 2
+text = "para acelerar/frenar"
+
+[node name="TutorialGirar" type="HBoxContainer" parent="CapaInterfaz/Interfaz/VBoxContainer" unique_id=2056865536]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CapaInterfaz/Interfaz/VBoxContainer/TutorialGirar" unique_id=549905134]
+custom_minimum_size = Vector2(60.36, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_kxf8l")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Tutorial" type="Label" parent="CapaInterfaz/Interfaz/VBoxContainer/TutorialGirar" unique_id=351801656]
+layout_mode = 2
+text = "para girar"
 
 [node name="CapaPausa" type="CanvasLayer" parent="." unique_id=217847342]
 process_mode = 3
