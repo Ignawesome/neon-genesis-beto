@@ -94,9 +94,32 @@ stretch_mode = 1
 [node name="TextureRect4" type="TextureRect" parent="FondoEscenario" unique_id=1614221624]
 offset_left = -10081.0
 offset_top = -5423.0
-offset_right = 10129.0
-offset_bottom = 5362.0
+offset_right = 94.271484
+offset_bottom = 7.0
 texture = ExtResource("4_jh10v")
+
+[node name="TextureRect5" type="TextureRect" parent="FondoEscenario" unique_id=1603727582]
+offset_left = 84.0
+offset_top = -5432.0
+offset_right = 10259.271
+offset_bottom = -2.0
+texture = ExtResource("4_jh10v")
+flip_h = true
+
+[node name="TextureRect6" type="TextureRect" parent="FondoEscenario" unique_id=172489446]
+offset_left = -10127.0
+offset_top = 12.0
+offset_right = 48.271484
+offset_bottom = 5442.0
+texture = ExtResource("4_jh10v")
+
+[node name="TextureRect7" type="TextureRect" parent="FondoEscenario" unique_id=2072046717]
+offset_left = 38.0
+offset_top = 3.0
+offset_right = 10213.271
+offset_bottom = 5433.0
+texture = ExtResource("4_jh10v")
+flip_h = true
 
 [node name="TextureRect2" type="TextureRect" parent="FondoEscenario" unique_id=1051890991]
 material = SubResource("ShaderMaterial_xq8jy")

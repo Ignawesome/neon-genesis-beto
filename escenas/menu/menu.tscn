@@ -5,6 +5,40 @@
 [ext_resource type="Texture2D" uid="uid://l3wonp24fode" path="res://assets/spinetta.png" id="2_4gq0v"]
 [ext_resource type="AudioStream" uid="uid://d24ubun81taa4" path="res://assets/audio/musica/himno.wav" id="2_ijpqp"]
 
+[sub_resource type="Gradient" id="Gradient_4gq0v"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.24821429, 0.76607144)
+colors = PackedColorArray(1, 1, 1, 1, 0.94968253, 0.95942146, 0.97500366, 1, 0.39215687, 0.50980395, 0.69803923, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sct53"]
+gradient = SubResource("Gradient_4gq0v")
+fill_from = Vector2(0, 0.54985756)
+fill_to = Vector2(0, 1)
+repeat = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qbe7e"]
+texture = SubResource("GradientTexture2D_sct53")
+expand_margin_left = 50.0
+expand_margin_top = 15.0
+expand_margin_right = 50.0
+expand_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4gq0v"]
+texture = SubResource("GradientTexture2D_sct53")
+expand_margin_left = 50.0
+expand_margin_top = 15.0
+expand_margin_right = 50.0
+expand_margin_bottom = 15.0
+modulate_color = Color(0.47788018, 0.47788018, 0.47787994, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jvueh"]
+texture = SubResource("GradientTexture2D_sct53")
+expand_margin_left = 50.0
+expand_margin_top = 15.0
+expand_margin_right = 50.0
+expand_margin_bottom = 15.0
+modulate_color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
 [node name="Menu" type="Control" unique_id=933442087]
 layout_mode = 3
 anchors_preset = 15
@@ -20,20 +54,20 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -38.5
-offset_right = 4.0
-offset_bottom = 9.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_yqnh4")
 
 [node name="TextureRect2" type="TextureRect" parent="." unique_id=637412588]
 self_modulate = Color(1, 1, 1, 0.22352941)
-layout_mode = 0
-offset_top = -43.0
-offset_right = 1312.0
-offset_bottom = 727.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_4gq0v")
+flip_h = true
 
 [node name="Jugar" type="Button" parent="." unique_id=1657939131]
 layout_mode = 1
@@ -42,14 +76,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -170.5
-offset_top = -83.0
-offset_right = 170.5
-offset_bottom = 83.0
+offset_left = 368.0
+offset_top = 190.0
+offset_right = 570.0
+offset_bottom = 281.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.72156864, 0.59607846, 0.30588236, 1)
+theme_override_colors/font_pressed_color = Color(0.72156864, 0.59607846, 0.30588236, 1)
+theme_override_colors/font_hover_color = Color(0.72156864, 0.59607846, 0.30588236, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 66
+theme_override_styles/normal = SubResource("StyleBoxTexture_qbe7e")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4gq0v")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jvueh")
 text = "JUGAR"
-flat = true
 
 [node name="himno" type="AudioStreamPlayer" parent="." unique_id=788955298]
 stream = ExtResource("2_ijpqp")
