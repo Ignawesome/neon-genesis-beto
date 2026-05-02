@@ -2,11 +2,16 @@ class_name Mundo
 extends Node
 
 @onready var contenedor_hp: HBoxContainer = %ContenedorHP
+@onready var monedas_label: Label = $CapaInterfaz/Interfaz/MonedasLabel
 
 const RANURA_CORAZON = preload("uid://tnju06m5ruxw")
 
+var puntaje: int = 0
+
 func _ready() -> void:
 	Globales.jugador.salud_cambiada.connect(actualizar_hp)
+	Globales.jugador.experiencia_ganada.connect(actualizar_monedas)
+	actualizar_monedas(puntaje)
 	Musica.pausar()
 
 func actualizar_hp(nueva_salud: int, _hp_maximo: int):
@@ -21,3 +26,9 @@ func actualizar_hp(nueva_salud: int, _hp_maximo: int):
 
 func agregar_nuevo_corazón():
 	contenedor_hp.add_child(RANURA_CORAZON.instantiate())
+
+
+func actualizar_monedas(cantidad: int) -> void:
+	puntaje += cantidad
+	monedas_label.text = "$%s" % puntaje
+	

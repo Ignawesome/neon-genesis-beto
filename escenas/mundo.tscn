@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://t2gm3lfxbskd" path="res://escenas/enemigos/moto_espacial.tscn" id="4_ijldy"]
 [ext_resource type="Texture2D" uid="uid://2te4fsbbudjd" path="res://assets/Background_Nebula-0002.png" id="4_jh10v"]
 [ext_resource type="PackedScene" uid="uid://tnju06m5ruxw" path="res://escenas/interfaz/ranura_corazon.tscn" id="4_v12yk"]
+[ext_resource type="FontFile" uid="uid://du2xuglb6lp4" path="res://PixelifySans-VariableFont_wght.ttf" id="12_2q7jt"]
 [ext_resource type="AudioStream" uid="uid://ctn1rg55eutdd" path="res://assets/audio/musica/capitan-beto.wav" id="12_kckb2"]
 [ext_resource type="Script" uid="uid://bmtn1254p4yj5" path="res://escenas/capa_pausa.gd" id="15_ry7fl"]
 [ext_resource type="PackedScene" uid="uid://ct3ni84jfra4u" path="res://escenas/enemigos/contenedor_enemigos.tscn" id="16_5bxjq"]
@@ -41,6 +42,14 @@ func _ready() -> void:
 
 [sub_resource type="LabelSettings" id="LabelSettings_xulgr"]
 font_size = 59
+
+[sub_resource type="LabelSettings" id="LabelSettings_ry7fl"]
+font = ExtResource("12_2q7jt")
+font_size = 52
+font_color = Color(0.72156864, 0.59607846, 0.30588236, 1)
+outline_size = 13
+outline_color = Color(0.26657522, 0.2665752, 0.2665752, 1)
+stacked_outline_count = 1
 
 [sub_resource type="Gradient" id="Gradient_2q7jt"]
 offsets = PackedFloat32Array(0.21022727, 1)
@@ -206,6 +215,18 @@ offset_right = 40.0
 grow_vertical = 0
 text = "100"
 label_settings = SubResource("LabelSettings_xulgr")
+
+[node name="MonedasLabel" type="Label" parent="CapaInterfaz/Interfaz" unique_id=942711156]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -118.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 71.0
+grow_horizontal = 0
+label_settings = SubResource("LabelSettings_ry7fl")
 
 [node name="CapaPausa" type="CanvasLayer" parent="." unique_id=217847342]
 process_mode = 3
