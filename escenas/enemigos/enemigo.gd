@@ -1,8 +1,7 @@
 class_name Enemigo
 extends CharacterBody2D
 
-const MOTO_ESPACIAL = preload("uid://t2gm3lfxbskd")
-
+signal request_moto(posicion: Vector2)
 # ==============================================================================
 # PROPIEDADES BASE DEL ENEMIGO (Configurable por cada criatura)
 # ==============================================================================
@@ -172,7 +171,10 @@ func morir():
 	
 	if spawnea_motos:
 		for i in cantidad_de_motos:
-			spawnear_moto()
+			var distancia := randf_range(25, 150)
+			var direccion := Vector2(randf_range(-1, 1), randf_range(-1, 1))
+			var posicion = global_position + direccion * distancia
+			request_moto.emit(posicion)
 	
 	# 2. Eliminar el nodo de la escena
 	queue_free()
@@ -204,13 +206,4 @@ func _on_timer_misil_timeout() -> void:
 	if objetivo and lanza_misiles:
 		var direccion_de_disparo := global_position.direction_to(objetivo.global_position)
 		lanzar_misil_a_direccion(direccion_de_disparo)
-		
-		
-func spawnear_moto() -> void:
-	var moto : Enemigo = MOTO_ESPACIAL.instantiate()
-	get_parent().add_child(moto)
-	var distancia := randf_range(25, 150)
-	var direccion := Vector2(randf_range(-1, 1), randf_range(-1, 1))
-	moto.global_position = self.global_position + direccion * distancia
-	#ContenedorEnemigos.aplicar_dificultad(moto, )
 	

@@ -261,8 +261,12 @@ func subir_de_nivel() -> void:
 	if nivel % 3 == 0: 	puntos_de_salud_maximos += 1
 	
 	fuerza_de_ataque += 0.5
-	misil_cooldown *= max(misil_cooldown * 0.9, min_misil_cooldown)
+	misil_cooldown = max(misil_cooldown * 0.9, min_misil_cooldown)
 	timer_misil.wait_time = misil_cooldown
+	
+	if not timer_misil.is_stopped():
+		timer_misil.start()
+	
 	probabilidad_de_esquiva = min(probabilidad_de_esquiva + 0.05, 0.5) # Máximo 50% de esquiva
 	
 	# Curar al máximo y emitir señal de nivel subido

@@ -1,6 +1,8 @@
 class_name ContenedorEnemigos
 extends Node2D
 
+const MOTO_ESPACIAL = preload("uid://t2gm3lfxbskd")
+
 @export var enemigos: Array[PackedScene]
 
 @export var timer_spawn_enemigo: Timer
@@ -57,7 +59,15 @@ func spawnear_enemigo():
 	add_child(nodo_enemigo)
 	nodo_enemigo.objetivo = Globales.jugador
 	nodo_enemigo.global_position = get_posicion_al_azar()
+	nodo_enemigo.request_moto.connect(spawnear_moto)
 	aplicar_dificultad(nodo_enemigo, dificultad)
+
+
+func spawnear_moto(pos: Vector2) -> void:
+	var moto : Enemigo = MOTO_ESPACIAL.instantiate()
+	get_parent().add_child(moto)
+	moto.global_position = pos
+	aplicar_dificultad(moto, dificultad)
 
 
 static func aplicar_dificultad(_enemigo: Enemigo, _dificultad: int) -> Enemigo:
