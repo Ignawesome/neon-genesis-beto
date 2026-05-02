@@ -338,7 +338,7 @@ collision_layer = 256
 collision_mask = 4
 script = ExtResource("9_mnegl")
 jugador = NodePath("..")
-velocidad = 11.205
+velocidad = 6.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Iman" unique_id=106066370]
 shape = SubResource("CircleShape2D_j2gbx")

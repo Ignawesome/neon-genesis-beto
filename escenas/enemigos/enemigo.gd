@@ -1,6 +1,8 @@
 class_name Enemigo
 extends CharacterBody2D
 
+const MOTO_ESPACIAL = preload("uid://t2gm3lfxbskd")
+
 # ==============================================================================
 # PROPIEDADES BASE DEL ENEMIGO (Configurable por cada criatura)
 # ==============================================================================
@@ -15,6 +17,10 @@ extends CharacterBody2D
 @export var duración_de_misil := 10
 @export var fuerza_de_ataque := 1
 @export var velocidad_de_giro: float = 5.0 
+
+@export var lanza_misiles := true
+@export var spawnea_motos := false
+@export var cantidad_de_motos := 3
 
 var velocidad_knockback: Vector2 = Vector2.ZERO
 var friccion_suelo: float = 3000.0 # Qué tan rápido frena después del empuje
@@ -163,7 +169,11 @@ func morir():
 		spawnear_orbe_hp()
 
 	spawnear_orbe_xp()
-
+	
+	if spawnea_motos:
+		for i in cantidad_de_motos:
+			spawnear_moto()
+	
 	# 2. Eliminar el nodo de la escena
 	queue_free()
 
@@ -191,6 +201,15 @@ func _on_deteccion_body_entered(body: Node2D) -> void:
 
 
 func _on_timer_misil_timeout() -> void:
-	if objetivo:
+	if objetivo and lanza_misiles:
 		var direccion_de_disparo := global_position.direction_to(objetivo.global_position)
 		lanzar_misil_a_direccion(direccion_de_disparo)
+		
+		
+func spawnear_moto() -> void:
+	var moto : Enemigo = MOTO_ESPACIAL.instantiate()
+	get_parent().add_child(moto)
+	var distancia := randf_range(25, 150)
+	var direccion := Vector2(randf_range(-1, 1), randf_range(-1, 1))
+	moto.global_position = self.global_position + direccion * distancia
+	

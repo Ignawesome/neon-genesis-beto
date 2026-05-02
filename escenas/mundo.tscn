@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://mqg3cdjl46g4" path="res://assets/Background_Stars-0001.png" id="3_6r2j4"]
 [ext_resource type="PackedScene" uid="uid://chdb6ur4yk4xe" path="res://escenas/enemigos/barco_ingles.tscn" id="3_kckb2"]
 [ext_resource type="Texture2D" uid="uid://bpi74uh5lhie6" path="res://assets/Background_Space-0001.png" id="3_mb57o"]
+[ext_resource type="PackedScene" uid="uid://t2gm3lfxbskd" path="res://escenas/enemigos/moto_espacial.tscn" id="4_ijldy"]
 [ext_resource type="Texture2D" uid="uid://2te4fsbbudjd" path="res://assets/Background_Nebula-0002.png" id="4_jh10v"]
 [ext_resource type="PackedScene" uid="uid://tnju06m5ruxw" path="res://escenas/interfaz/ranura_corazon.tscn" id="4_v12yk"]
 [ext_resource type="AudioStream" uid="uid://ctn1rg55eutdd" path="res://assets/audio/musica/capitan-beto.wav" id="12_kckb2"]
@@ -67,6 +68,7 @@ script = ExtResource("1_4vydk")
 script = ExtResource("2_jcqeh")
 contenedor = NodePath("../ContenedorEnemigos")
 barco_ingles = ExtResource("3_kckb2")
+moto_espacial = ExtResource("4_ijldy")
 
 [node name="FondoEscenario" type="Node2D" parent="." unique_id=1747902482]
 position = Vector2(0, 6)
@@ -141,7 +143,7 @@ position = Vector2(0, -1)
 [node name="Jugador" parent="ContenedorJugador" unique_id=152997274 instance=ExtResource("1_cdbbl")]
 
 [node name="Camera2D" type="Camera2D" parent="ContenedorJugador/Jugador" unique_id=2056180483]
-limit_left = -10103
+limit_left = -10086
 limit_top = -5420
 limit_right = 10103
 limit_bottom = 5329
@@ -170,7 +172,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ContenedorHP" type="HBoxContainer" parent="CapaInterfaz/Interfaz" unique_id=1641938596]
 unique_name_in_owner = true
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.65060544
+anchor_bottom = 0.056944445
 offset_right = 40.0
 offset_bottom = 40.0
 metadata/_edit_use_anchors_ = true

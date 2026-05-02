@@ -10,6 +10,7 @@ extends Node2D
 @export var tiempo_aumento_enemigos := 5
 @export var tiempo_entre_enemigos := 3.0
 
+var dificultad: int = 1
 
 func _ready() -> void:
 	timer_spawn_enemigo.timeout.connect(spawnear_enemigo)
@@ -18,10 +19,11 @@ func _ready() -> void:
 
 # --- FUNCIONES PARA EL MANAGER DE OLEADA ---
 
-func configurar_y_arrancar(nuevos_enemigos: Array[PackedScene], tasa_inicial: float):
+func configurar_y_arrancar(nuevos_enemigos: Array[PackedScene], tasa_inicial: float, _dificultad: int):
 	# Actualizamos los datos para la nueva oleada
 	enemigos = nuevos_enemigos
 	tiempo_entre_enemigos = tasa_inicial
+	dificultad = _dificultad
 	
 	# Reiniciamos los timers
 	timer_spawn_enemigo.wait_time = tiempo_entre_enemigos
@@ -55,6 +57,10 @@ func spawnear_enemigo():
 	add_child(nodo_enemigo)
 	nodo_enemigo.objetivo = Globales.jugador
 	nodo_enemigo.global_position = get_posicion_al_azar()
+	nodo_enemigo.fuerza_de_ataque *= dificultad
+	nodo_enemigo.velocidad_de_movimiento *= dificultad
+	nodo_enemigo.puntos_de_salud_maximos *= dificultad
+	nodo_enemigo.cantidad_de_motos *= dificultad
 
 
 func get_posicion_al_azar():

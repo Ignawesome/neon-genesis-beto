@@ -257,14 +257,15 @@ func subir_de_nivel() -> void:
 	next_lvl_bar.max_value = experiencia_para_subir
 	
 	# Aumentar capacidades (el núcleo del juego!)
-	puntos_de_salud_maximos += 1
+	if nivel % 3 == 0: 	puntos_de_salud_maximos += 1
+	
 	fuerza_de_ataque += 0.5
 	misil_cooldown *= 0.9
 	timer_misil.wait_time = misil_cooldown
 	probabilidad_de_esquiva = min(probabilidad_de_esquiva + 0.05, 0.5) # Máximo 50% de esquiva
 	
 	# Curar al máximo y emitir señal de nivel subido
-	salud_actual = puntos_de_salud_maximos
+	#salud_actual = puntos_de_salud_maximos
 	nivel_subido.emit(nivel)
 	print("¡Nivel subido a %d!" % nivel)
 

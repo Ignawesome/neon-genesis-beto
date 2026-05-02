@@ -1,76 +1,75 @@
-[gd_scene format=3 uid="uid://chdb6ur4yk4xe"]
+[gd_scene format=3 uid="uid://t2gm3lfxbskd"]
 
-[ext_resource type="Script" uid="uid://b3tmnagc2lm28" path="res://escenas/enemigos/enemigo.gd" id="1_jpt84"]
-[ext_resource type="Texture2D" uid="uid://cp2or25cnkvlm" path="res://assets/enemigos/barco_ingles.png" id="2_0do7l"]
-[ext_resource type="AudioStream" uid="uid://by2iafmryrla2" path="res://assets/audio/sfx/disparo.wav" id="3_0do7l"]
-[ext_resource type="Texture2D" uid="uid://crqo1kmpq7ro8" path="res://assets/particulas/flame_05.png" id="3_vtcjh"]
+[ext_resource type="Script" uid="uid://b3tmnagc2lm28" path="res://escenas/enemigos/enemigo.gd" id="1_euxv1"]
+[ext_resource type="Texture2D" uid="uid://c40xq4autiqj3" path="res://assets/enemigos/moto_espacial.png" id="2_euxv1"]
+[ext_resource type="AudioStream" uid="uid://by2iafmryrla2" path="res://assets/audio/sfx/disparo.wav" id="3_cntbf"]
+[ext_resource type="Texture2D" uid="uid://crqo1kmpq7ro8" path="res://assets/particulas/flame_05.png" id="4_2bnwl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_und4c"]
-radius = 15.0
-height = 92.0
+radius = 2.7210884
+height = 9.070295
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rgida"]
-radius = 23.129253
-height = 106.53969
+radius = 3.1746027
+height = 9.9773245
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hyley"]
-radius = 22.09606
-height = 118.1678
+radius = 3.1746032
+height = 9.9773245
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0fmwu"]
-radius = 1164.9862
+radius = 819.58154
 
-[sub_resource type="Curve" id="Curve_dce04"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.15002239), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_cntbf"]
+_data = [Vector2(0.037735846, 0.6623377), 0.0, 0.0, 0, 0, Vector2(1, 0.15002239), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="Gradient" id="Gradient_ia1m8"]
+[sub_resource type="Gradient" id="Gradient_1c4ak"]
 offsets = PackedFloat32Array(0.0016611295, 0.5199336, 1)
 colors = PackedColorArray(0.9977918, 0.81700736, 0.746657, 1, 0.7128628, 0.38709134, 0.05188948, 1, 0.13330114, 0.22413787, 0.63382185, 1)
 
-[node name="BarcoIngles" type="CharacterBody2D" unique_id=2090262566 groups=["enemigos"]]
+[node name="MotoEspacial" type="CharacterBody2D" unique_id=2090262566 groups=["enemigos"]]
 rotation = 1.5707964
-scale = Vector2(2.205, 2.205)
+scale = Vector2(3.625, 3.625)
 collision_layer = 2
 collision_mask = 8
-script = ExtResource("1_jpt84")
-velocidad_de_movimiento = 175.0
-puntos_de_salud_maximos = 5.0
+script = ExtResource("1_euxv1")
+velocidad_de_movimiento = 300.0
+puntos_de_salud_maximos = 1.0
 probabilidad_orbe_hp = 0.1
-spawnea_motos = true
+lanza_misiles = false
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1820233895]
-position = Vector2(30.838997, -27.664413)
-scale = Vector2(0.03, 0.03)
-texture = ExtResource("2_0do7l")
+position = Vector2(-2.3841858e-07, 1.9073486e-06)
+rotation = -1.5707964
+scale = Vector2(0.25366744, 0.25366747)
+texture = ExtResource("2_euxv1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2001147944]
-position = Vector2(1, -19)
 shape = SubResource("CapsuleShape2D_und4c")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1578794563]
 unique_name_in_owner = true
+visible = false
 rotation = -1.5707964
 collision_layer = 16
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Hitbox" unique_id=190840879]
-position = Vector2(12, 5.2453663e-07)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_rgida")
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=1174398145]
 unique_name_in_owner = true
+visible = false
 rotation = -1.5707964
 collision_layer = 32
 collision_mask = 64
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Hurtbox" unique_id=933027315]
-position = Vector2(16, 1.0000007)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_hyley")
 
 [node name="Deteccion" type="Area2D" parent="." unique_id=310970100]
-visible = false
 collision_layer = 0
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
@@ -79,22 +78,20 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_0fmwu")
 
 [node name="SonidoDisparo" type="AudioStreamPlayer2D" parent="." unique_id=49723250]
-stream = ExtResource("3_0do7l")
+visible = false
+stream = ExtResource("3_cntbf")
 volume_db = -16.0
 bus = &"SFX"
+metadata/_edit_lock_ = true
 
 [node name="TimerMisil" type="Timer" parent="." unique_id=1399413646]
 autostart = true
 
-[node name="Label" type="Label" parent="." unique_id=1774083688]
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1337472868]
-position = Vector2(-19.501127, 81.632645)
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1121381665]
+position = Vector2(2.9802322e-07, 7.1724133)
 rotation = -1.5707964
-scale = Vector2(0.445, 0.445)
-texture = ExtResource("3_vtcjh")
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("4_2bnwl")
 lifetime = 0.35000000000000003
 particle_flag_align_y = true
 direction = Vector2(-0.625, 0)
@@ -103,28 +100,9 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 541.82
 initial_velocity_max = 630.62
 scale_amount_min = 0.1
-scale_amount_max = 0.4
-scale_amount_curve = SubResource("Curve_dce04")
-color_ramp = SubResource("Gradient_ia1m8")
-hue_variation_min = -1.0
-hue_variation_max = 1.0
-
-[node name="CPUParticles2D2" type="CPUParticles2D" parent="." unique_id=1081201789]
-position = Vector2(19.501139, 82.086174)
-rotation = -1.5707964
-scale = Vector2(0.445, 0.445)
-texture = ExtResource("3_vtcjh")
-lifetime = 0.35000000000000003
-particle_flag_align_y = true
-direction = Vector2(-0.625, 0)
-spread = 0.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 541.82
-initial_velocity_max = 630.62
-scale_amount_min = 0.1
-scale_amount_max = 0.4
-scale_amount_curve = SubResource("Curve_dce04")
-color_ramp = SubResource("Gradient_ia1m8")
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_cntbf")
+color_ramp = SubResource("Gradient_1c4ak")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 

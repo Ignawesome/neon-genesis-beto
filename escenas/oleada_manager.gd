@@ -5,7 +5,9 @@ extends Node
 
 # Cargás tus escenas acá en el Inspector
 @export var barco_ingles: PackedScene
-@export var bache_mutante: PackedScene
+@export var moto_espacial: PackedScene
+
+var dificultad: int = 1
 
 # --- ESTRUCTURA DE LA OLEADA ---
 class DatosOleada:
@@ -29,7 +31,7 @@ func _ready() -> void:
 	
 	# DISEÑO DE NIVELES:
 	# Parámetros: (Duración en segs, [Array de Enemigos permitidos], Tasa de spawn inicial)
-	lista_oleadas.append(DatosOleada.new(30.0, [barco_ingles], 2.5)) 
+	lista_oleadas.append(DatosOleada.new(30.0, [moto_espacial], 2.5)) 
 	lista_oleadas.append(DatosOleada.new(45.0, [barco_ingles], 2.0))
 	lista_oleadas.append(DatosOleada.new(60.0, [barco_ingles], 1.0)) # Oleada final hardcore
 	
@@ -47,10 +49,13 @@ func iniciar_oleada(indice: int) -> void:
 	print("--- INICIANDO OLEADA ", indice_actual + 1, " ---")
 	
 	# Le pasamos la pelota al contenedor para que haga su magia
-	contenedor.configurar_y_arrancar(oleada.pool_enemigos, oleada.frecuencia_inicial)
+	contenedor.configurar_y_arrancar(oleada.pool_enemigos, oleada.frecuencia_inicial, dificultad)
 	
 	# Arrancamos el reloj para la próxima oleada
 	timer_oleada.start(oleada.duracion)
 
 func siguiente_oleada() -> void:
-	iniciar_oleada(indice_actual + 1)
+	if indice_actual % 3 == 0: 
+		dificultad += 1
+		print("Sube la dificultad a %s" % dificultad)
+	iniciar_oleada(wrap(indice_actual + 1, 0, lista_oleadas.size()))

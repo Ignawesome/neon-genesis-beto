@@ -1,34 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://bl3kjd4s4bdak"]
+[gd_scene format=3 uid="uid://bl3kjd4s4bdak"]
 
 [ext_resource type="Script" uid="uid://cl6dtytq0x626" path="res://escenas/objetos/orbe_experiencia.gd" id="1_twc5k"]
+[ext_resource type="Texture2D" uid="uid://ddq1j2ouaxepg" path="res://assets/mate.png" id="2_64li1"]
 [ext_resource type="AudioStream" uid="uid://cj0pcxwshf0pb" path="res://assets/audio/sfx/xp_orb.wav" id="2_73yl4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5nfbb"]
 
-[sub_resource type="Gradient" id="Gradient_5nfbb"]
-interpolation_mode = 1
-offsets = PackedFloat32Array(0, 0.37341774)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_v3ik0"]
-gradient = SubResource("Gradient_5nfbb")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
-[node name="OrbeHP" type="Area2D"]
+[node name="OrbeHP" type="Area2D" unique_id=1006970282]
 collision_layer = 4
 script = ExtResource("1_twc5k")
 cantidad_de_experiencia = 0.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=89428152]
 shape = SubResource("CircleShape2D_5nfbb")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.9807916, 0.51049894, 0.89912295, 1)
-scale = Vector2(0.595, 0.595)
-texture = SubResource("GradientTexture2D_v3ik0")
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1565415026]
+position = Vector2(0, -6)
+scale = Vector2(0.205, 0.205)
+texture = ExtResource("2_64li1")
 
-[node name="SonidoPickup" type="AudioStreamPlayer2D" parent="."]
+[node name="SonidoPickup" type="AudioStreamPlayer2D" parent="." unique_id=1069885510]
 stream = ExtResource("2_73yl4")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
