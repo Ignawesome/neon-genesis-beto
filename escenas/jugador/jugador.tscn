@@ -257,6 +257,28 @@ point_count = 2
 offsets = PackedFloat32Array(0.0016611295, 0.5199336, 1)
 colors = PackedColorArray(0.7529412, 1, 1, 1, 0, 0.9184935, 0.8071811, 1, 0.13330114, 0.22413787, 0.63382185, 1)
 
+[sub_resource type="Gradient" id="Gradient_y8cwd"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.24821429, 0.76607144)
+colors = PackedColorArray(1, 1, 1, 1, 0.94968253, 0.95942146, 0.97500366, 1, 0.39215687, 0.50980395, 0.69803923, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rgcxu"]
+gradient = SubResource("Gradient_y8cwd")
+fill_from = Vector2(0, 0.54985756)
+fill_to = Vector2(0, 1)
+repeat = 2
+
+[sub_resource type="Gradient" id="Gradient_4gq0v"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.24821429, 0.76607144)
+colors = PackedColorArray(1, 1, 1, 1, 0.94968253, 0.95942146, 0.97500366, 1, 0.39215687, 0.50980395, 0.69803923, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_853hc"]
+gradient = SubResource("Gradient_4gq0v")
+fill_from = Vector2(0, 0.54985756)
+fill_to = Vector2(0, 1)
+repeat = 2
+
 [node name="Jugador" type="CharacterBody2D" unique_id=1183311057 node_paths=PackedStringArray("sonido_disparo", "sonido_level_up", "sonido_dañado", "sonido_explosion", "collision_shape_2d", "timer_misil", "sprite_normal", "sprite_roto", "next_lvl_bar", "animation_player", "motor_1", "motor_2")]
 collision_mask = 28
 script = ExtResource("1_vquro")
@@ -273,7 +295,7 @@ collision_shape_2d = NodePath("CollisionShape2D")
 timer_misil = NodePath("TimerMisil")
 sprite_normal = NodePath("SpriteNormal")
 sprite_roto = NodePath("SpriteRoto")
-next_lvl_bar = NodePath("CanvasLayer/NextLvlBar")
+next_lvl_bar = NodePath("CanvasLayer/NextLvlBar2")
 animation_player = NodePath("AnimationPlayer")
 motor_1 = NodePath("CPUParticles2D")
 motor_2 = NodePath("CPUParticles2D2")
@@ -381,7 +403,7 @@ hue_variation_max = 1.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=222281754]
 
-[node name="NextLvlBar" type="ProgressBar" parent="CanvasLayer" unique_id=1180053419]
+[node name="NextLvlBar2" type="ProgressBar" parent="CanvasLayer" unique_id=1180053419]
 unique_name_in_owner = true
 anchors_preset = 12
 anchor_top = 1.0
@@ -390,6 +412,22 @@ anchor_bottom = 1.0
 offset_top = -27.0
 grow_horizontal = 2
 grow_vertical = 0
+show_percentage = false
+
+[node name="NextLvlBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=717554930]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 38.19)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture2D_rgcxu")
+texture_progress = SubResource("GradientTexture2D_853hc")
+tint_under = Color(0.49878424, 0.49878424, 0.49878418, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2052600274]
 visible = false
