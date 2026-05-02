@@ -48,7 +48,7 @@ var min_misil_cooldown: float = 0.1
 @export var timer_misil: Timer
 @export var sprite_normal: Sprite2D
 @export var sprite_roto: Sprite2D
-@export var next_lvl_bar: ProgressBar
+@export var next_lvl_bar: TextureProgressBar
 @export var animation_player: AnimationPlayer
 
 @export var motor_1: CPUParticles2D
