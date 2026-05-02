@@ -42,6 +42,9 @@ var min_misil_cooldown: float = 0.1
 @export var sonido_level_up: AudioStreamPlayer2D
 @export var sonido_dañado: AudioStreamPlayer2D
 @export var sonido_explosion: AudioStreamPlayer2D
+@export var halo: Sprite2D
+@onready var esquivar_tell: CPUParticles2D = %EsquivarTell
+@onready var esquivar_tell_2: CPUParticles2D = %EsquivarTell2
 
 @export var collision_shape_2d: CollisionShape2D
 
@@ -151,12 +154,16 @@ func girar(direccion: float, delta: float) -> void:
 func esquivar() -> void:
 	invulnerable = true
 	puede_esquivar = false
+	esquivar_tell.hide()
+	esquivar_tell_2.hide()
 	fuerza_de_choque *= 3.0
 	animation_player.play("esquivar")
 	get_tree().create_timer(1.0).timeout.connect(
 		func():
 			invulnerable = false
 			puede_esquivar = true
+			esquivar_tell.show()
+			esquivar_tell_2.show()
 			animation_player.play("RESET")
 			fuerza_de_choque /= 3.0
 	)
@@ -164,6 +171,7 @@ func esquivar() -> void:
 
 func activar_anillo():
 	puede_activar_anillo = false
+	halo.hide()
 	var anillo: Anillo = Anillo.crear_anillo(self)
 	
 # La función move_toward() es mágica: acerca un número a otro de a pasos definidos,
@@ -196,7 +204,8 @@ func morir():
 	derrotado.emit()
 	
 	await get_tree().create_timer(2).timeout
-	get_tree().reload_current_scene.call_deferred()
+	
+	get_tree().change_scene_to_file("uid://c33wlp776s3bb") 
 
 
 func recibir_danio(cantidad_de_danio: float) -> void:
@@ -248,6 +257,7 @@ func ganar_experiencia(cantidad: float) -> void:
 
 func subir_de_nivel() -> void:
 	puede_activar_anillo = true
+	halo.show()
 	# Ajustar XP restante y aumentar nivel
 	experiencia_actual -= experiencia_para_subir
 	nivel += 1

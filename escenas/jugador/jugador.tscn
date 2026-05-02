@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://dr3f6rhrm4udm" path="res://assets/jugador/bondi_beto_roto.png" id="3_j2gbx"]
 [ext_resource type="AudioStream" uid="uid://by2iafmryrla2" path="res://assets/audio/sfx/disparo.wav" id="3_jkpmm"]
 [ext_resource type="Texture2D" uid="uid://difwcwdstlu3n" path="res://assets/jugador/nave_beto.png" id="3_mnegl"]
-[ext_resource type="AudioStream" uid="uid://3rgdq7vfbpcn" path="res://assets/audio/sfx/level_up.wav" id="4_vkjxu"]
 [ext_resource type="AudioStream" uid="uid://bfy6rw6qudsb5" path="res://assets/audio/sfx/daño.wav" id="5_xlrr1"]
+[ext_resource type="AudioStream" uid="uid://brfcoky7jminm" path="res://assets/audio/sfx/Subtle Combo Level 1.ogg" id="6_y8cwd"]
 [ext_resource type="AudioStream" uid="uid://bu5cu0fsbpulh" path="res://assets/audio/sfx/explosion.wav" id="7_26844"]
 [ext_resource type="Texture2D" uid="uid://gn7ay2yc1jv5" path="res://assets/particulas/fire_01.png" id="8_mnegl"]
 [ext_resource type="Script" uid="uid://bg6lns8xsld3m" path="res://escenas/jugador/iman.gd" id="9_mnegl"]
@@ -257,6 +257,15 @@ point_count = 2
 offsets = PackedFloat32Array(0.0016611295, 0.5199336, 1)
 colors = PackedColorArray(0.7529412, 1, 1, 1, 0, 0.9184935, 0.8071811, 1, 0.13330114, 0.22413787, 0.63382185, 1)
 
+[sub_resource type="Gradient" id="Gradient_853hc"]
+offsets = PackedFloat32Array(0.6759868, 1)
+colors = PackedColorArray(0.02, 0.02, 0.02, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nj5b7"]
+gradient = SubResource("Gradient_853hc")
+fill_to = Vector2(0.53276354, 0.014245015)
+repeat = 2
+
 [sub_resource type="Gradient" id="Gradient_y8cwd"]
 interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.24821429, 0.76607144)
@@ -279,7 +288,7 @@ fill_from = Vector2(0, 0.54985756)
 fill_to = Vector2(0, 1)
 repeat = 2
 
-[node name="Jugador" type="CharacterBody2D" unique_id=1183311057 node_paths=PackedStringArray("sonido_disparo", "sonido_level_up", "sonido_dañado", "sonido_explosion", "collision_shape_2d", "timer_misil", "sprite_normal", "sprite_roto", "next_lvl_bar", "animation_player", "motor_1", "motor_2")]
+[node name="Jugador" type="CharacterBody2D" unique_id=1183311057 node_paths=PackedStringArray("sonido_disparo", "sonido_level_up", "sonido_dañado", "sonido_explosion", "halo", "collision_shape_2d", "timer_misil", "sprite_normal", "sprite_roto", "next_lvl_bar", "animation_player", "motor_1", "motor_2")]
 collision_mask = 28
 script = ExtResource("1_vquro")
 velocidad_de_giro = 5.0
@@ -291,6 +300,7 @@ sonido_disparo = NodePath("SonidoDisparo")
 sonido_level_up = NodePath("SonidoLevelUp")
 "sonido_dañado" = NodePath("SonidoDañado")
 sonido_explosion = NodePath("SonidoExplosion")
+halo = NodePath("Halo")
 collision_shape_2d = NodePath("CollisionShape2D")
 timer_misil = NodePath("TimerMisil")
 sprite_normal = NodePath("SpriteNormal")
@@ -330,8 +340,8 @@ volume_db = -16.0
 bus = &"SFX"
 
 [node name="SonidoLevelUp" type="AudioStreamPlayer2D" parent="." unique_id=2007828184]
-stream = ExtResource("4_vkjxu")
-volume_db = -16.0
+stream = ExtResource("6_y8cwd")
+volume_db = -5.646
 bus = &"SFX"
 
 [node name="SonidoDañado" type="AudioStreamPlayer2D" parent="." unique_id=357083975]
@@ -368,6 +378,42 @@ shape = SubResource("CircleShape2D_j2gbx")
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=575208023]
 position = Vector2(-80, -17)
 texture = ExtResource("10_j2gbx")
+lifetime = 0.35000000000000003
+particle_flag_align_y = true
+direction = Vector2(-0.625, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 160.0
+initial_velocity_max = 439.71
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_y8cwd")
+color_ramp = SubResource("Gradient_rgcxu")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="EsquivarTell" type="CPUParticles2D" parent="." unique_id=1500350444]
+unique_name_in_owner = true
+position = Vector2(-40, -54)
+texture = SubResource("GradientTexture2D_nj5b7")
+lifetime = 0.35000000000000003
+particle_flag_align_y = true
+direction = Vector2(-0.625, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 160.0
+initial_velocity_max = 439.71
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_y8cwd")
+color_ramp = SubResource("Gradient_rgcxu")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[node name="EsquivarTell2" type="CPUParticles2D" parent="." unique_id=1244086233]
+unique_name_in_owner = true
+position = Vector2(-38, 57)
+texture = SubResource("GradientTexture2D_nj5b7")
 lifetime = 0.35000000000000003
 particle_flag_align_y = true
 direction = Vector2(-0.625, 0)
@@ -429,8 +475,7 @@ texture_under = SubResource("GradientTexture2D_rgcxu")
 texture_progress = SubResource("GradientTexture2D_853hc")
 tint_under = Color(0.49878424, 0.49878424, 0.49878418, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2052600274]
-visible = false
+[node name="Halo" type="Sprite2D" parent="." unique_id=2052600274]
 modulate = Color(1, 0.7607843, 0.4117647, 1)
 show_behind_parent = true
 scale = Vector2(0.63, 0.63)

@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://c33wlp776s3bb"]
+
+[ext_resource type="Texture2D" uid="uid://bg86tyg1qglci" path="res://assets/cinematica/final_1.png" id="1_ly2sx"]
+[ext_resource type="Script" uid="uid://bdgpoeum0xp1a" path="res://escenas/final/final.gd" id="1_tw1v4"]
+[ext_resource type="Texture2D" uid="uid://lh8em1rlkr3x" path="res://assets/cinematica/Pixellance.pdf_12.png" id="2_hf7op"]
+[ext_resource type="Texture2D" uid="uid://cann4bojy3scs" path="res://assets/cinematica/final beto.png" id="3_v2t7q"]
+[ext_resource type="Texture2D" uid="uid://cujbuewmdaagt" path="res://assets/cinematica/creditos.png" id="4_6om0w"]
+[ext_resource type="Texture2D" uid="uid://c56hqslqcuoq3" path="res://assets/cinematica/final_3.png" id="5_mq4ck"]
+[ext_resource type="Texture2D" uid="uid://2qhruucfjnk" path="res://assets/cinematica/final_2.png" id="6_6xi8e"]
+[ext_resource type="AudioStream" uid="uid://r2o4y1ltw8y1" path="res://assets/audio/musica/barro tal vez.wav" id="8_hf7op"]
+
+[node name="Final" type="Control" unique_id=626036484 node_paths=PackedStringArray("_6", "_5", "_4", "_3", "_2", "_1")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tw1v4")
+_6 = NodePath("6")
+_5 = NodePath("5")
+_4 = NodePath("4")
+_3 = NodePath("3")
+_2 = NodePath("2")
+_1 = NodePath("1")
+
+[node name="6" type="TextureRect" parent="." unique_id=808724209]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_hf7op")
+expand_mode = 1
+
+[node name="5" type="TextureRect" parent="." unique_id=1966370957]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_v2t7q")
+expand_mode = 1
+
+[node name="4" type="TextureRect" parent="." unique_id=567540355]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_6om0w")
+expand_mode = 1
+
+[node name="3" type="TextureRect" parent="." unique_id=579111211]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_mq4ck")
+expand_mode = 1
+
+[node name="2" type="TextureRect" parent="." unique_id=587625584]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_6xi8e")
+expand_mode = 1
+
+[node name="1" type="TextureRect" parent="." unique_id=1534289693]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ly2sx")
+expand_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1794735880]
+stream = ExtResource("8_hf7op")
+volume_db = -5.29
+autoplay = true
