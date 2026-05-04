@@ -17,7 +17,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 config/name="Cowboy Betop"
 run/main_scene="uid://d2wfj1m7x4y7m"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="uid://cdaixgkt7585g"
+config/icon="uid://bhf65dg6ct8cg"
 
 [audio]
 

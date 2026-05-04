@@ -39,6 +39,12 @@ expand_margin_right = 50.0
 expand_margin_bottom = 15.0
 modulate_color = Color(0.737193, 0.7371929, 0.7371929, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_4gq0v"]
+font_size = 110
+font_color = Color(0.95979387, 0.9995925, 1, 1)
+outline_size = 34
+outline_color = Color(4.042983e-06, 0.58650994, 0.7665872, 1)
+
 [node name="Menu" type="Control" unique_id=933442087]
 layout_mode = 3
 anchors_preset = 15
@@ -95,5 +101,15 @@ text = "JUGAR"
 [node name="himno" type="AudioStreamPlayer" parent="." unique_id=788955298]
 stream = ExtResource("2_ijpqp")
 volume_db = -19.909
+
+[node name="Label" type="Label" parent="." unique_id=41399640]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 23.0
+offset_right = 560.0
+offset_bottom = 328.0
+text = "COWBOY 
+BETOP"
+label_settings = SubResource("LabelSettings_4gq0v")
 
 [connection signal="pressed" from="Jugar" to="." method="_on_jugar_pressed"]
